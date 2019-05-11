@@ -1,0 +1,37 @@
+{
+    "score-regional": [
+        {"club":"Leeds","team":"Leeds 1","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Northern","regional":"Round 1","division":"Mixed","position":1,"score":20},
+        {"club":"SKUM","team":"SKUM 1","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Northern","regional":"Round 1","division":"Mixed","position":2,"score":18},
+        {"club":"SKUM","team":"SKUM 2","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Northern","regional":"Round 1","division":"Mixed","position":0,"score":0},
+        {"club":"SKUM","team":"SKUM 1","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Northern","regional":"Round 2","division":"Mixed","position":1,"score":20},
+        {"club":"Leeds","team":"Leeds 1","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Northern","regional":"Round 2","division":"Mixed","position":0,"score":0},
+        {"club":"SKUM","team":"SKUM 2","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Northern","regional":"Round 2","division":"Mixed","position":0,"score":0},
+        {"club":"SKUM","team":"SKUM 1","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Northern","regional":"Round 3","division":"Mixed","position":0,"score":0},
+        {"club":"SKUM","team":"SKUM 2","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Northern","regional":"Round 3","division":"Mixed","position":0,"score":0},
+        {"club":"Leeds","team":"Leeds 1","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Northern","regional":"Round 3","division":"Mixed","position":0,"score":0},
+        {"club":"SKUM","team":"SKUM 1","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Northern","regional":"Round 4","division":"Mixed","position":0,"score":0},
+        {"club":"SKUM","team":"SKUM 2","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Northern","regional":"Round 4","division":"Mixed","position":0,"score":0},
+        {"club":"Leeds","team":"Leeds 1","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Northern","regional":"Round 4","division":"Mixed","position":0,"score":0},
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Western","regional":"Round 1","division":"Mixed","position":1,"score":20},
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Western","regional":"Round 2","division":"Mixed","position":1,"score":20},
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Western","regional":"Round 3","division":"Mixed","position":0,"score":0},
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2018/19","league":"Western","regional":"Round 4","division":"Mixed","position":0,"score":0},
+
+        {"club":"Leeds","team":"Leeds 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Northern","regional":"Round 1","division":"Mixed","position":1,"score":20},
+        {"club":"SKUM","team":"SKUM 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Northern","regional":"Round 1","division":"Mixed","position":2,"score":18},
+        {"club":"SKUM","team":"SKUM 2","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Northern","regional":"Round 1","division":"Mixed","position":0,"score":0},
+        {"club":"SKUM","team":"SKUM 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Northern","regional":"Round 2","division":"Mixed","position":1,"score":20},
+        {"club":"Leeds","team":"Leeds 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Northern","regional":"Round 2","division":"Mixed","position":0,"score":0},
+        {"club":"SKUM","team":"SKUM 2","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Northern","regional":"Round 2","division":"Mixed","position":0,"score":0},
+        {"club":"SKUM","team":"SKUM 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Northern","regional":"Round 3","division":"Mixed","position":0,"score":0},
+        {"club":"SKUM","team":"SKUM 2","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Northern","regional":"Round 3","division":"Mixed","position":0,"score":0},
+        {"club":"Leeds","team":"Leeds 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Northern","regional":"Round 3","division":"Mixed","position":0,"score":0},
+        {"club":"SKUM","team":"SKUM 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Northern","regional":"Round 4","division":"Mixed","position":0,"score":0},
+        {"club":"SKUM","team":"SKUM 2","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Northern","regional":"Round 4","division":"Mixed","position":0,"score":0},
+        {"club":"Leeds","team":"Leeds 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Northern","regional":"Round 4","division":"Mixed","position":0,"score":0},
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 1","division":"Mixed","position":1,"score":20},
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 2","division":"Mixed","position":1,"score":20},
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 3","division":"Mixed","position":0,"score":0},
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 4","division":"Mixed","position":0,"score":0}
+    ]
+}

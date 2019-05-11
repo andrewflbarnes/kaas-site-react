@@ -29,11 +29,13 @@ export default class RegionalScoresByLeague extends React.Component {
     this.getScores();
   }
 
-  reduceToUnique(scores, type) {
+  reduceToUnique(scores, type, reverseOrder = false) {
     return scores.map(s =>
       s[type]
     ).filter((value, index, self) =>
       self.indexOf(value) === index
+    ).sort((i, j) =>
+      reverseOrder ? j.localeCompare(i) : i.localeCompare(j)
     )
   }
 
@@ -42,7 +44,7 @@ export default class RegionalScoresByLeague extends React.Component {
       const reducedScores = this.accumulateLeague(regionalScores)
       const competitions = this.reduceToUnique(regionalScores, "competition")
       const leagues = this.reduceToUnique(regionalScores, "league")
-      const seasons = this.reduceToUnique(regionalScores, "season")
+      const seasons = this.reduceToUnique(regionalScores, "season", true)
       const regionals = this.reduceToUnique(regionalScores, "regional")
 
       this.setState({
@@ -56,7 +58,21 @@ export default class RegionalScoresByLeague extends React.Component {
   }
 
   accumulateLeague(scores) {
-    return scores.reduce((acc, cur) => {
+    return scores.sort((i, j) => {
+      const { competition: iCompetition, season: iSeason, league: iLeague } = i
+      const { competition: jCompetition, season: jSeason, league: jLeague } = j
+
+      let result = iCompetition.localeCompare(jCompetition)
+      if (result === 0) {
+        // Most recent first so revers comparison
+        result = jSeason.localeCompare(iSeason)
+        if (result === 0) {
+          result = iLeague.localeCompare(jLeague)
+        }
+      }
+
+      return result
+    }).reduce((acc, cur) => {
       const { competition, season, league, regional, division, club, team, score } = cur
 
       let index = acc.findIndex(e =>

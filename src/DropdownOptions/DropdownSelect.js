@@ -34,9 +34,7 @@ export default class DropdownSelect extends React.Component {
             <Button className="col-12 rounded-0" variant="dark-outline" onClick={() => this.toggleItemAndCollapse("")}>
               All
             </Button>
-            {list.sort((i, j) =>
-              i.localeCompare(j)
-            ).map(item => (
+            {list.map(item => (
               <Button key={item} className="col-12 rounded-0" variant="dark-outline" onClick={() => this.toggleItemAndCollapse(item)}>
                 {item}
               </Button>

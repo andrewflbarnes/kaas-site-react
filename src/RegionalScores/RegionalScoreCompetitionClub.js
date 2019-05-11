@@ -22,9 +22,6 @@ export default class RegionalScoreCompetitionClub extends React.Component{
 
   render() {
     const {competition, season, league, clubs, title, regionals } = this.props
-    const orderedRegionals = regionals.sort((i, j) =>
-      i.localeCompare(j)
-    )
     // +1 for total
     const teamColSize = (100 - (regionals.length + 1) * 12.5)
     const nClass = { width: `${teamColSize}%`}
@@ -48,7 +45,7 @@ export default class RegionalScoreCompetitionClub extends React.Component{
                         <thead>
                           <tr>
                             <th style={nClass}>Name</th>
-                            {orderedRegionals.map(r =>
+                            {regionals.map(r =>
                               <th style={rClass}>{r}</th>
                             )}
                             <th style={rClass}>Total</th>
@@ -59,7 +56,7 @@ export default class RegionalScoreCompetitionClub extends React.Component{
                         {d.teams.map(t => 
                           <tr key={t.name}>
                             <td style={nClass}>{t.name}</td>
-                            {orderedRegionals.map(r =>
+                            {regionals.map(r =>
                               <th style={rClass}>{t.scores[r]}</th>
                             )}
                             <th style={rClass}>{t.scores.total}</th>
