@@ -1,3 +1,13 @@
+# kaas-site-react
+
+To demo the site start the `kings-results-service` on port `9080` or start the mock server by running `npm run mock`.
+
+In either case the `/score/regional` endpoint will be exposed on `http://localhost:9080`.
+
+Start the site server by running `npm start`.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
