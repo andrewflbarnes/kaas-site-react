@@ -1,10 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import api from '../api';
 import RegionalScoreCompetitionClub from './RegionalScoreCompetitionClub';
-import DropdownOptions from '../DropdownOptions/DropdownOptions';
 import Collapse from 'react-bootstrap/Collapse';
+import FilterOptions from '../FilterOptions';
 
-export default class RegionalScoresByLeague extends React.Component {
+export class RawRegionalScoresByLeague extends React.Component {
   constructor() {
     super()
 
@@ -19,9 +20,6 @@ export default class RegionalScoresByLeague extends React.Component {
 
     this.getScores = this.getScores.bind(this)
     this.accumulateLeague = this.accumulateLeague.bind(this)
-    this.handleCompetitionToggle = this.handleCompetitionToggle.bind(this)
-    this.handleLeagueToggle = this.handleLeagueToggle.bind(this)
-    this.handleSeasonToggle = this.handleSeasonToggle.bind(this)
     this.reduceToUnique = this.reduceToUnique.bind(this)
   }
 
@@ -179,22 +177,9 @@ export default class RegionalScoresByLeague extends React.Component {
     }, [])
   }
 
-  handleLeagueToggle(league) {
-    this.props.handleFilterChange("league", league)
-  }
-
-  handleSeasonToggle(season) {
-    this.props.handleFilterChange("season", season)
-  }
-
-  handleCompetitionToggle(competition) {
-    this.props.handleFilterChange("competition", competition)
-  }
-
   render() {
-    const { handleCompetitionToggle, handleSeasonToggle, handleLeagueToggle, state, props } = this
-    const { reducedScores, leagues, competitions, seasons, regionals } = state
-    const { activeFilters, nextFilters, handleApplyFilters, handleCancelFilters, showFilters } = props
+    const { reducedScores, leagues, competitions, seasons, regionals } = this.state
+    const { activeFilters, nextFilters, showFilters } = this.props
 
     const { competition: activeCompetition, season: activeSeason, league: activeLeague } = activeFilters
     const filteredScores = reducedScores.filter(e => {
@@ -219,18 +204,13 @@ export default class RegionalScoresByLeague extends React.Component {
       season,
       leagues,
       league,
-      handleCompetitionToggle,
-      handleSeasonToggle,
-      handleLeagueToggle,
-      handleApplyFilters,
-      handleCancelFilters
     }
 
     return (
       <>
         <Collapse in={showFilters}>
           <div>
-            <DropdownOptions {...optionProps} />
+            <FilterOptions {...optionProps} />
           </div>
         </Collapse>
         {filteredScores.map(e => 
@@ -240,3 +220,16 @@ export default class RegionalScoresByLeague extends React.Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  const { nextFilters, activeFilters } = state.filters
+
+  return {
+    nextFilters,
+    activeFilters
+  }
+}
+
+const RegionalScoresByLeague = connect(mapStateToProps)(RawRegionalScoresByLeague)
+
+export default RegionalScoresByLeague
