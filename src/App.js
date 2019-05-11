@@ -87,7 +87,7 @@ export default class App extends React.Component {
     }
 
     return (
-      <div className="App">
+      <div className="App col-lg-10 offset-lg-1 px-0" >
         <Navigation {...navProps} />
         <ScoresByLeague {...scoreProps} />
       </div>

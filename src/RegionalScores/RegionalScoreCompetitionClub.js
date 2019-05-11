@@ -3,6 +3,8 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import Collapse from 'react-bootstrap/Collapse'
 
+const ROUND_COLUMN_WIDTH_PC = 12.5
+
 export default class RegionalScoreCompetitionClub extends React.Component{
   constructor(props) {
     super(props)
@@ -23,9 +25,9 @@ export default class RegionalScoreCompetitionClub extends React.Component{
   render() {
     const {competition, season, league, clubs, title, regionals } = this.props
     // +1 for total
-    const teamColSize = (100 - (regionals.length + 1) * 12.5)
+    const teamColSize = (100 - (regionals.length + 1) * ROUND_COLUMN_WIDTH_PC)
     const nClass = { width: `${teamColSize}%`}
-    const rClass = { width: "12.5%"}
+    const rClass = { width: `${ROUND_COLUMN_WIDTH_PC}%`}
     
     return (
       <>
@@ -40,7 +42,7 @@ export default class RegionalScoreCompetitionClub extends React.Component{
                 {c.divisions.map(d =>
                   <div key={d.name}>
                     <h6 className="mt-1 mb-0 col-12" >{d.name}</h6>
-                    {<Table className="col-lg-10 offset-lg-1" bordered variant="dark">
+                    {<Table bordered variant="dark">
                       {title &&
                         <thead>
                           <tr>
