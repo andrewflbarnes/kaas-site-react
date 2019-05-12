@@ -1,58 +1,24 @@
 import React from 'react';
+import { Provider } from 'react-redux'
 import './App.css';
-import ScoresByLeague from './RegionalScores';
+import RegionalScores from './RegionalScores';
+import FilterOptions from './FilterOptions'
 import Navigation from './Navigation';
+import Collapse from 'react-bootstrap/Collapse'
+import store from './store'
 
 export default class App extends React.Component {
   constructor() {
     super()
 
-    const initialFilters = {
-      league: "",
-      competition: "",
-      season: "",
-    }
-
     this.state = {
-      activeFilters: initialFilters,
-      nextFilters: initialFilters,
       showFilters: false,
       expandNavbar: false
     }
 
-    this.handleFilterChange = this.handleFilterChange.bind(this)
-    this.handleApplyFilters = this.handleApplyFilters.bind(this)
-    this.handleCancelFilters = this.handleCancelFilters.bind(this)
     this.toggleShowFilters = this.toggleShowFilters.bind(this)
     this.toggleExpandNavbar = this.toggleExpandNavbar.bind(this)
-  }
-
-  handleFilterChange(type, value) {
-    const { nextFilters } = this.state
-    this.setState({
-      nextFilters: {
-        ...nextFilters,
-        [type]: value
-      }
-    })
-  }
-
-  handleApplyFilters() {
-    const { nextFilters } = this.state
-    this.setState({
-      activeFilters: nextFilters,
-      showFilters: false,
-      expandNavbar: false
-    })
-  }
-
-  handleCancelFilters() {
-    const { activeFilters } = this.state
-    this.setState({
-      nextFilters: activeFilters,
-      showFilters: false,
-      expandNavbar: false
-    })
+    this.handleFilterActivated = this.handleFilterActivated.bind(this)
   }
 
   toggleExpandNavbar() {
@@ -69,16 +35,16 @@ export default class App extends React.Component {
     })
   }
 
+  handleFilterActivated() {
+    this.setState({
+      showFilters: false,
+      expandNavbar: false
+    })
+  }
+
   render() {
-    const { state, handleFilterChange, handleApplyFilters, toggleShowFilters, handleCancelFilters, toggleExpandNavbar } = this
-    const { expandNavbar } = state
-    const scoreProps = {
-      ...state,
-      handleFilterChange,
-      handleApplyFilters,
-      handleCancelFilters,
-      toggleShowFilters
-    }
+    const { state, toggleShowFilters, toggleExpandNavbar } = this
+    const { expandNavbar, showFilters } = state
 
     const navProps = {
       toggleShowFilters,
@@ -88,8 +54,15 @@ export default class App extends React.Component {
 
     return (
       <div className="App col-lg-10 offset-lg-1 px-0" >
-        <Navigation {...navProps} />
-        <ScoresByLeague {...scoreProps} />
+        <Provider store={store}>
+          <Navigation {...navProps} />
+          <Collapse in={showFilters}>
+            <div>
+              <FilterOptions onFilterActivated={this.handleFilterActivated} />
+            </div>
+          </Collapse>
+          <RegionalScores />
+        </Provider>
       </div>
     )
   }

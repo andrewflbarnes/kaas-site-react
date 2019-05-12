@@ -1,8 +1,11 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import Collapse from 'react-bootstrap/Collapse'
 import Button from 'react-bootstrap/Button'
+import * as actions from '../action_creators'
 
-export default class DropdownSelect extends React.Component {
+export class RawFilterSelect extends React.Component {
   constructor() {
     super()
 
@@ -12,21 +15,21 @@ export default class DropdownSelect extends React.Component {
   }
 
   toggleItemAndCollapse(item) {
-    const { toggleItem } = this.props
+    const { updateNextFilter, type } = this.props
     this.setState({
       open: false
     })
 
-    toggleItem(item)
+    updateNextFilter(type, item)
   }
 
   render(){
-    const { list, type, current } = this.props
+    const { title, list, current } = this.props
     const { open } = this.state
     return(
       <>
         <Button className="col-12 rounded-0" variant="none" onClick={() => this.setState({ open: !open })}>
-          <h5>{type} : {current || "All"}</h5>
+          <h5>{title} : {current || "All"}</h5>
         </Button>
 
         <Collapse in={this.state.open}>
@@ -45,3 +48,15 @@ export default class DropdownSelect extends React.Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {}
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(actions, dispatch);
+};
+
+const FilterSelect = connect(mapStateToProps, mapDispatchToProps)(RawFilterSelect);
+
+export default FilterSelect
