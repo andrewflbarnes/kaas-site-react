@@ -9,22 +9,22 @@ export function RawFilterOptions({
   competitions, competition,
   seasons, season,
   leagues, league,
-  toggleShowFilters,
+  onFilterActivated,
   applyFilters, cancelFilters, resetFilters
 }) {
   function applyAndToggle() {
     applyFilters()
-    toggleShowFilters()
+    onFilterActivated()
   }
 
   function cancelAndToggle() {
     cancelFilters()
-    toggleShowFilters()
+    onFilterActivated()
   }
 
   function resetAndToggle() {
     resetFilters()
-    toggleShowFilters()
+    onFilterActivated()
   }
 
   return (

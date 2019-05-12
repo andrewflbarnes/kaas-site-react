@@ -18,6 +18,7 @@ export default class App extends React.Component {
 
     this.toggleShowFilters = this.toggleShowFilters.bind(this)
     this.toggleExpandNavbar = this.toggleExpandNavbar.bind(this)
+    this.handleFilterActivated = this.handleFilterActivated.bind(this)
   }
 
   toggleExpandNavbar() {
@@ -34,13 +35,16 @@ export default class App extends React.Component {
     })
   }
 
+  handleFilterActivated() {
+    this.setState({
+      showFilters: false,
+      expandNavbar: false
+    })
+  }
+
   render() {
     const { state, toggleShowFilters, toggleExpandNavbar } = this
     const { expandNavbar, showFilters } = state
-    const scoreProps = {
-      ...state,
-      toggleShowFilters
-    }
 
     const navProps = {
       toggleShowFilters,
@@ -54,10 +58,10 @@ export default class App extends React.Component {
           <Navigation {...navProps} />
           <Collapse in={showFilters}>
             <div>
-              <FilterOptions toggleShowFilters={toggleShowFilters} />
+              <FilterOptions onFilterActivated={this.handleFilterActivated} />
             </div>
           </Collapse>
-          <RegionalScores {...scoreProps} />
+          <RegionalScores />
         </Provider>
       </div>
     )
