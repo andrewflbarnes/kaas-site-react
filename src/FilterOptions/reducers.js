@@ -1,7 +1,8 @@
 import {
   UPDATE_NEXT_FILTER,
   APPLY_FILTERS,
-  CANCEL_FILTERS
+  CANCEL_FILTERS,
+  RESET_FILTERS
 } from './action_names'
 
 const initialState = {
@@ -31,6 +32,12 @@ function filters(state = initialState, action) {
       return {
         ...state,
         nextFilters: activeFilters,
+      }
+    case RESET_FILTERS:
+      return {
+        ...state,
+        nextFilters: [],
+        activeFilters: [],
       }
     default:
       return state

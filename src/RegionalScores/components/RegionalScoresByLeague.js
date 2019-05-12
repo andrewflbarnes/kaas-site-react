@@ -1,22 +1,13 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import api from '../api';
-import RegionalScoreCompetitionClub from './RegionalScoreCompetitionClub';
-import Collapse from 'react-bootstrap/Collapse';
-import FilterOptions from '../FilterOptions';
+import api from '../../api';
+import RegionalScoreCompetitionClub from './RegionalScoresByClub';
+import * as actions from '../action_creators'
 
 export class RawRegionalScoresByLeague extends React.Component {
   constructor() {
     super()
-
-    this.state = {
-      reducedScores: [],
-      leagues: [],
-      seasons: [],
-      competitions: [],
-      regionals: [],
-      showOptions: false
-    }
 
     this.getScores = this.getScores.bind(this)
     this.accumulateLeague = this.accumulateLeague.bind(this)
@@ -39,19 +30,22 @@ export class RawRegionalScoresByLeague extends React.Component {
 
   getScores() {
     api.getRegionalScores().then(regionalScores => {
-      const reducedScores = this.accumulateLeague(regionalScores)
-      const competitions = this.reduceToUnique(regionalScores, "competition")
-      const leagues = this.reduceToUnique(regionalScores, "league")
-      const seasons = this.reduceToUnique(regionalScores, "season", true)
-      const regionals = this.reduceToUnique(regionalScores, "regional")
-
-      this.setState({
-        reducedScores,
-        competitions,
-        leagues,
-        seasons,
-        regionals
-      })
+      const { setRegionalScores, setCompetitions, setSeasons, setLeagues, setRegionals } = this.props
+      setRegionalScores(
+        this.accumulateLeague(regionalScores)
+      )
+      setCompetitions(
+        this.reduceToUnique(regionalScores, "competition")
+      )
+      setLeagues(
+        this.reduceToUnique(regionalScores, "league")
+      )
+      setSeasons(
+        this.reduceToUnique(regionalScores, "season", true)
+      )
+      setRegionals(
+        this.reduceToUnique(regionalScores, "regional")
+      )
     })
   }
 
@@ -62,7 +56,7 @@ export class RawRegionalScoresByLeague extends React.Component {
 
       let result = iCompetition.localeCompare(jCompetition)
       if (result === 0) {
-        // Most recent first so revers comparison
+        // Most recent first so reverse comparison
         result = jSeason.localeCompare(iSeason)
         if (result === 0) {
           result = iLeague.localeCompare(jLeague)
@@ -79,29 +73,35 @@ export class RawRegionalScoresByLeague extends React.Component {
         e.league === league
       )
 
+      const newTeam = {
+        name: team,
+        scores: {
+          [regional]: score,
+          total: score
+        }
+      }
+  
+      const newDivision = {
+        name: division,
+        teams: [
+          newTeam
+        ]
+      }
+  
+      const newClub = {
+        name: club,
+        divisions: [
+          newDivision
+        ]
+      }
+
       if (index < 0) {
         acc.push({
           competition,
           season,
           league,
           clubs: [
-            {
-              name: club,
-              divisions: [
-                {
-                  name: division,
-                  teams: [
-                    {
-                      name: team,
-                      scores: {
-                        [regional]: score,
-                        total: score
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
+            newClub
           ],
         })
       } else {
@@ -111,23 +111,7 @@ export class RawRegionalScoresByLeague extends React.Component {
         )
 
         if (clubIndex < 0) {
-          clubs.push({
-            name: club,
-            divisions: [
-              {
-                name: division,
-                teams: [
-                  {
-                    name: team,
-                    scores: {
-                      [regional]: score,
-                      total: score
-                    }
-                  }
-                ]
-              }
-            ]
-          })
+          clubs.push(newClub)
         } else {
           const divisions = clubs[clubIndex].divisions
           const divisionIndex = divisions.findIndex(e =>
@@ -135,18 +119,7 @@ export class RawRegionalScoresByLeague extends React.Component {
           )
   
           if (divisionIndex < 0) {
-            divisions.push({
-              name: division,
-              teams: [
-                {
-                  name: team,
-                  scores: {
-                    [regional]: score,
-                    total: score
-                  }
-                }
-              ]
-            })
+            divisions.push(newDivision)
           } else {
             const teams = divisions[divisionIndex].teams
             const teamIndex = teams.findIndex(e =>
@@ -154,13 +127,7 @@ export class RawRegionalScoresByLeague extends React.Component {
             )
     
             if (teamIndex < 0) {
-              teams.push({
-                name: team,
-                scores: {
-                  [regional]: score,
-                  total: score
-                }
-              })
+              teams.push(newTeam)
             } else {
               const scores = teams[teamIndex].scores
               const { total } = scores
@@ -178,11 +145,10 @@ export class RawRegionalScoresByLeague extends React.Component {
   }
 
   render() {
-    const { reducedScores, leagues, competitions, seasons, regionals } = this.state
-    const { activeFilters, nextFilters, showFilters } = this.props
-
+    const { scores, activeFilters } = this.props
     const { competition: activeCompetition, season: activeSeason, league: activeLeague } = activeFilters
-    const filteredScores = reducedScores.filter(e => {
+
+    const filteredScores = scores.filter(e => {
       if (activeCompetition && e.competition !== activeCompetition) {
         return false
       }
@@ -196,25 +162,10 @@ export class RawRegionalScoresByLeague extends React.Component {
       return true
     })
 
-    const { competition, season, league } = nextFilters
-    const optionProps = {
-      competitions,
-      competition,
-      seasons,
-      season,
-      leagues,
-      league,
-    }
-
     return (
       <>
-        <Collapse in={showFilters}>
-          <div>
-            <FilterOptions {...optionProps} />
-          </div>
-        </Collapse>
         {filteredScores.map(e => 
-          <RegionalScoreCompetitionClub key={`${e.competition}_${e.season}_${e.league}`} regionals={regionals} {...e} />
+          <RegionalScoreCompetitionClub key={`${e.competition}_${e.season}_${e.league}`} {...e} />
         )}
       </>
     )
@@ -222,14 +173,19 @@ export class RawRegionalScoresByLeague extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { nextFilters, activeFilters } = state.filters
+  const { activeFilters } = state.filters
+  const { scores } = state.regionalScores
 
   return {
-    nextFilters,
-    activeFilters
+    activeFilters,
+    scores
   }
 }
 
-const RegionalScoresByLeague = connect(mapStateToProps)(RawRegionalScoresByLeague)
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(actions, dispatch)
+}
+
+const RegionalScoresByLeague = connect(mapStateToProps, mapDispatchToProps)(RawRegionalScoresByLeague)
 
 export default RegionalScoresByLeague

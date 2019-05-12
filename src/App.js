@@ -1,8 +1,10 @@
 import React from 'react';
 import { Provider } from 'react-redux'
 import './App.css';
-import ScoresByLeague from './RegionalScores';
+import RegionalScores from './RegionalScores';
+import FilterOptions from './FilterOptions'
 import Navigation from './Navigation';
+import Collapse from 'react-bootstrap/Collapse'
 import store from './store'
 
 export default class App extends React.Component {
@@ -34,7 +36,7 @@ export default class App extends React.Component {
 
   render() {
     const { state, toggleShowFilters, toggleExpandNavbar } = this
-    const { expandNavbar } = state
+    const { expandNavbar, showFilters } = state
     const scoreProps = {
       ...state,
       toggleShowFilters
@@ -50,7 +52,12 @@ export default class App extends React.Component {
       <div className="App col-lg-10 offset-lg-1 px-0" >
         <Provider store={store}>
           <Navigation {...navProps} />
-          <ScoresByLeague {...scoreProps} />
+          <Collapse in={showFilters}>
+            <div>
+              <FilterOptions toggleShowFilters={toggleShowFilters} />
+            </div>
+          </Collapse>
+          <RegionalScores {...scoreProps} />
         </Provider>
       </div>
     )

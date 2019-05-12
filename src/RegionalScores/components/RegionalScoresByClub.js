@@ -1,11 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import Collapse from 'react-bootstrap/Collapse'
 
 const ROUND_COLUMN_WIDTH_PC = 12.5
 
-export default class RegionalScoreCompetitionClub extends React.Component{
+export class RawRegionalScoreCompetitionClub extends React.Component{
   constructor(props) {
     super(props)
 
@@ -76,3 +77,12 @@ export default class RegionalScoreCompetitionClub extends React.Component{
     )
   }
 }
+
+const mapStateToProps = state => {
+  const { regionals } = state.regionalScores
+  return { regionals }
+}
+
+const RegionalScoreCompetitionClub = connect(mapStateToProps)(RawRegionalScoreCompetitionClub)
+
+export default RegionalScoreCompetitionClub
