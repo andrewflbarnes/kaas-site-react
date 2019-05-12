@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import api from '../../api';
-import RegionalScoreCompetitionClub from './RegionalScoresByClub';
+import RegionalScoresByClub from './RegionalScoresByClub';
 import * as actions from '../action_creators'
 
 export class RawRegionalScoresByLeague extends React.Component {
@@ -165,7 +165,7 @@ export class RawRegionalScoresByLeague extends React.Component {
     return (
       <>
         {filteredScores.map(e => 
-          <RegionalScoreCompetitionClub key={`${e.competition}_${e.season}_${e.league}`} {...e} />
+          <RegionalScoresByClub key={`${e.competition}_${e.season}_${e.league}`} {...e} />
         )}
       </>
     )

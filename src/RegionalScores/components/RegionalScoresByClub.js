@@ -6,7 +6,7 @@ import Collapse from 'react-bootstrap/Collapse'
 
 const ROUND_COLUMN_WIDTH_PC = 12.5
 
-export class RawRegionalScoreCompetitionClub extends React.Component{
+export class RawRegionalScoresByClub extends React.Component{
   constructor(props) {
     super(props)
 
@@ -60,7 +60,7 @@ export class RawRegionalScoreCompetitionClub extends React.Component{
                           <tr key={t.name}>
                             <td style={nClass}>{t.name}</td>
                             {regionals.map(r =>
-                              <th style={rClass}>{t.scores[r]}</th>
+                              <th key={r} style={rClass}>{t.scores[r]}</th>
                             )}
                             <th style={rClass}>{t.scores.total}</th>
                           </tr>
@@ -83,6 +83,6 @@ const mapStateToProps = state => {
   return { regionals }
 }
 
-const RegionalScoreCompetitionClub = connect(mapStateToProps)(RawRegionalScoreCompetitionClub)
+const RegionalScoresByClub = connect(mapStateToProps)(RawRegionalScoresByClub)
 
-export default RegionalScoreCompetitionClub
+export default RegionalScoresByClub
