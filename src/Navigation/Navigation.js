@@ -1,24 +1,79 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import Button from 'react-bootstrap/Button'
 import Nav from 'react-bootstrap/Nav'
+import Modal from 'react-bootstrap/Modal'
 import Navbar from 'react-bootstrap/Navbar'
+import FilterOptions from '../FilterOptions/components/FilterOptions'
+import * as actions from '../FilterOptions/action_creators'
 
-export default function Navigation({ toggleShowFilters, expandNavbar, toggleExpandNavbar }) {
-  return (
-    <Navbar bg="light" expand="md" expanded={expandNavbar}>
-      <Navbar.Brand href="#home">KAAS</Navbar.Brand>
-      <Navbar.Toggle onClick={toggleExpandNavbar} aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Button variant="none" onClick={toggleShowFilters}>
-            Filters
-          </Button>
-        </Nav>
-        {/* <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-success">Search</Button>
-        </Form> */}
-      </Navbar.Collapse>
-    </Navbar>
-  )
+export class RawNavigation extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showFilters: false
+    }
+
+    this.toggleShowFilters = this.toggleShowFilters.bind(this)
+    this.handleFilterActivated = this.handleFilterActivated.bind(this)
+    this.handleHide = this.handleHide.bind(this)
+  }
+
+  toggleShowFilters() {
+    const { showFilters } = this.state
+    this.setState({
+      showFilters: !showFilters
+    })
+  }
+
+  handleFilterActivated() {
+    this.setState({
+      showFilters: false
+    })
+  }
+
+  handleHide() {
+    const { cancelFilters } = this.props
+
+    this.toggleShowFilters()
+    cancelFilters()
+  }
+
+  render() {
+    const { handleHide, toggleShowFilters, handleFilterActivated, state } = this
+    const { showFilters } = state
+
+    return (
+      <>
+        <Navbar sticky="top" bg="light" expand="md">
+          <Navbar.Brand href="#">KAAS</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link href="#seeding">Seeding</Nav.Link>
+              <Button className="text-secondary" variant="none" onClick={toggleShowFilters}>
+                Filters
+              </Button>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+
+        <Modal show={showFilters} onHide={handleHide}>
+          <Modal.Body>
+            <FilterOptions onFilterActivated={handleFilterActivated} />
+          </Modal.Body>
+        </Modal>
+      </>
+    )
+  }
 }
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(actions, dispatch);
+};
+
+const Navigation = connect(null, mapDispatchToProps)(RawNavigation);
+
+export default Navigation

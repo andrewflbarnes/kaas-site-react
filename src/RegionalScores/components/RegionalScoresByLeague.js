@@ -29,19 +29,12 @@ export class RawRegionalScoresByLeague extends React.Component {
   }
 
   getScores() {
+    this.props.getData()
+    // TODO move to action_creator getData
     api.getRegionalScores().then(regionalScores => {
-      const { setRegionalScores, setCompetitions, setSeasons, setLeagues, setRegionals } = this.props
+      const { setRegionalScores, setLeagues, setRegionals } = this.props
       setRegionalScores(
         this.accumulateLeague(regionalScores)
-      )
-      setCompetitions(
-        this.reduceToUnique(regionalScores, "competition")
-      )
-      setLeagues(
-        this.reduceToUnique(regionalScores, "league")
-      )
-      setSeasons(
-        this.reduceToUnique(regionalScores, "season", true)
       )
       setRegionals(
         this.reduceToUnique(regionalScores, "regional")
@@ -164,9 +157,13 @@ export class RawRegionalScoresByLeague extends React.Component {
 
     return (
       <>
-        {filteredScores.map(e => 
-          <RegionalScoresByClub key={`${e.competition}_${e.season}_${e.league}`} {...e} />
-        )}
+        {filteredScores.length > 0
+          ? filteredScores.map(e => 
+            <RegionalScoresByClub key={`${e.competition}_${e.season}_${e.league}`} {...e} />
+          ) : (
+            <h1>No results</h1>
+          )
+        }
       </>
     )
   }
