@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import RegionalScoresClubButton from './RegionalScoresClubButton'
 import RegionalScoresClubRow from './RegionalScoresClubRow';
 
-export class RawRegionalScoresClub extends React.Component{
+export class RawRegionalScoresClub extends React.PureComponent {
   constructor(props) {
     super(props)
 
@@ -31,7 +31,6 @@ export class RawRegionalScoresClub extends React.Component{
     
     return (
       <>
-        <h3 className="mt-3">{competition}:{season}:{league}</h3>
         {clubs.map(c =>
           <div key={c.name}>
             <RegionalScoresClubButton clubName={c.name} onCollapse={this.handleCollapse} />

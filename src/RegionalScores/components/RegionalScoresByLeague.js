@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import RegionalScoresClub from './RegionalScoresClub'
 import * as actions from '../../common/action_creators'
+import { RegionalScoresByLeagueHeader } from './RegionalScoresByLeagueHeader';
 
-// TODO function/PureComponent
-export class RawRegionalScoresByLeague extends React.Component {
+export class RawRegionalScoresByLeague extends React.PureComponent {
   render() {
     const { scores, activeFilters } = this.props
     const { competition: activeCompetition, season: activeSeason, league: activeLeague } = activeFilters
@@ -27,9 +27,12 @@ export class RawRegionalScoresByLeague extends React.Component {
     return (
       <>
         {filteredScores.length > 0
-          ? filteredScores.map(e => 
-            <RegionalScoresClub key={`${e.competition}_${e.season}_${e.league}`} {...e} />
-          ) : (
+          ? filteredScores.map(e => (
+            <>
+              <RegionalScoresByLeagueHeader competition={e.competition} season={e.season} league={e.league} />
+              <RegionalScoresClub key={`${e.competition}_${e.season}_${e.league}`} {...e} />
+            </>
+          )) : (
             <h1>No results</h1>
           )
         }
