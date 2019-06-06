@@ -42,8 +42,10 @@ export class RawNavigation extends React.Component {
   }
 
   render() {
-    const { handleHide, toggleShowFilters, handleFilterActivated, state } = this
+    const { handleHide, toggleShowFilters, handleFilterActivated, state, props } = this
     const { showFilters } = state
+    const { activeFilters } = props
+    const filterNames = Object.keys(activeFilters)
 
     return (
       <>
@@ -53,12 +55,22 @@ export class RawNavigation extends React.Component {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="#seeding">Seeding</Nav.Link>
+              <Nav.Link href="#racing">Racing</Nav.Link>
               <Button className="text-secondary" variant="none" onClick={toggleShowFilters}>
                 Filters
               </Button>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
+        <div>
+          <span className="mx-2">Filters{ filterNames.length ? '' : ' : None' }</span>
+          { filterNames.map(f => (
+            <>
+              <span>-></span>
+              <span className="mx-2"> {f.charAt(0).toUpperCase() + f.slice(1)} : {activeFilters[f]}</span>
+            </>
+          ))}
+        </div>
 
         <Modal show={showFilters} onHide={handleHide}>
           <Modal.Body>
@@ -70,10 +82,18 @@ export class RawNavigation extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  const { filters: { activeFilters } } = state
+
+  return {
+    activeFilters
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(actions, dispatch);
 };
 
-const Navigation = connect(null, mapDispatchToProps)(RawNavigation);
+const Navigation = connect(mapStateToProps, mapDispatchToProps)(RawNavigation);
 
 export default Navigation

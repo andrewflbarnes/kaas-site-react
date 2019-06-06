@@ -1,142 +1,11 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import api from '../../api';
-import RegionalScoresByClub from './RegionalScoresByClub';
-import * as actions from '../action_creators'
+import RegionalScoresByClub from './RegionalScoresByClub'
+import * as actions from '../../common/action_creators'
 
+// TODO function/PureComponent
 export class RawRegionalScoresByLeague extends React.Component {
-  constructor() {
-    super()
-
-    this.getScores = this.getScores.bind(this)
-    this.accumulateLeague = this.accumulateLeague.bind(this)
-    this.reduceToUnique = this.reduceToUnique.bind(this)
-  }
-
-  componentDidMount() {
-    this.getScores();
-  }
-
-  reduceToUnique(scores, type, reverseOrder = false) {
-    return scores.map(s =>
-      s[type]
-    ).filter((value, index, self) =>
-      self.indexOf(value) === index
-    ).sort((i, j) =>
-      reverseOrder ? j.localeCompare(i) : i.localeCompare(j)
-    )
-  }
-
-  getScores() {
-    this.props.getData()
-    // TODO move to action_creator getData
-    api.getRegionalScores().then(regionalScores => {
-      const { setRegionalScores, setLeagues, setRegionals } = this.props
-      setRegionalScores(
-        this.accumulateLeague(regionalScores)
-      )
-      setRegionals(
-        this.reduceToUnique(regionalScores, "regional")
-      )
-    })
-  }
-
-  accumulateLeague(scores) {
-    return scores.sort((i, j) => {
-      const { competition: iCompetition, season: iSeason, league: iLeague } = i
-      const { competition: jCompetition, season: jSeason, league: jLeague } = j
-
-      let result = iCompetition.localeCompare(jCompetition)
-      if (result === 0) {
-        // Most recent first so reverse comparison
-        result = jSeason.localeCompare(iSeason)
-        if (result === 0) {
-          result = iLeague.localeCompare(jLeague)
-        }
-      }
-
-      return result
-    }).reduce((acc, cur) => {
-      const { competition, season, league, regional, division, club, team, score } = cur
-
-      let index = acc.findIndex(e =>
-        e.competition === competition &&
-        e.season === season &&
-        e.league === league
-      )
-
-      const newTeam = {
-        name: team,
-        scores: {
-          [regional]: score,
-          total: score
-        }
-      }
-  
-      const newDivision = {
-        name: division,
-        teams: [
-          newTeam
-        ]
-      }
-  
-      const newClub = {
-        name: club,
-        divisions: [
-          newDivision
-        ]
-      }
-
-      if (index < 0) {
-        acc.push({
-          competition,
-          season,
-          league,
-          clubs: [
-            newClub
-          ],
-        })
-      } else {
-        const clubs = acc[index].clubs
-        const clubIndex = clubs.findIndex(e =>
-          e.name === club  
-        )
-
-        if (clubIndex < 0) {
-          clubs.push(newClub)
-        } else {
-          const divisions = clubs[clubIndex].divisions
-          const divisionIndex = divisions.findIndex(e =>
-            e.name === division  
-          )
-  
-          if (divisionIndex < 0) {
-            divisions.push(newDivision)
-          } else {
-            const teams = divisions[divisionIndex].teams
-            const teamIndex = teams.findIndex(e =>
-              e.name === team
-            )
-    
-            if (teamIndex < 0) {
-              teams.push(newTeam)
-            } else {
-              const scores = teams[teamIndex].scores
-              const { total } = scores
-              teams[teamIndex].scores = {
-                ...scores,
-                [regional]: score,
-                total: total + score
-              }
-            }
-          }
-        }
-      }
-      return acc;
-    }, [])
-  }
-
   render() {
     const { scores, activeFilters } = this.props
     const { competition: activeCompetition, season: activeSeason, league: activeLeague } = activeFilters
@@ -171,7 +40,7 @@ export class RawRegionalScoresByLeague extends React.Component {
 
 const mapStateToProps = state => {
   const { activeFilters } = state.filters
-  const { scores } = state.regionalScores
+  const { scores } = state.kaas
 
   return {
     activeFilters,

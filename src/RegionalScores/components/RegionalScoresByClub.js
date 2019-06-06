@@ -24,7 +24,14 @@ export class RawRegionalScoresByClub extends React.Component{
   }
 
   render() {
-    const {competition, season, league, clubs, title, regionals } = this.props
+    const {competition, season, league, clubs, title, regionals: allRegionals } = this.props
+
+    const regionals = allRegionals.filter(r => 
+      r.competition === competition &&
+      r.season === season &&
+      r.league === league  
+    )
+
     // +1 for total
     const teamColSize = (100 - (regionals.length + 1) * ROUND_COLUMN_WIDTH_PC)
     const nClass = { width: `${teamColSize}%`}
@@ -49,7 +56,7 @@ export class RawRegionalScoresByClub extends React.Component{
                           <tr>
                             <th style={nClass}>Name</th>
                             {regionals.map(r =>
-                              <th style={rClass}>{r}</th>
+                              <th style={rClass}>{r.name}</th>
                             )}
                             <th style={rClass}>Total</th>
                           </tr>
@@ -60,7 +67,7 @@ export class RawRegionalScoresByClub extends React.Component{
                           <tr key={t.name}>
                             <td style={nClass}>{t.name}</td>
                             {regionals.map(r =>
-                              <th key={r} style={rClass}>{t.scores[r]}</th>
+                                <th key={r.name} style={rClass}>{t.scores[r.name]}</th>
                             )}
                             <th style={rClass}>{t.scores.total}</th>
                           </tr>
@@ -79,7 +86,7 @@ export class RawRegionalScoresByClub extends React.Component{
 }
 
 const mapStateToProps = state => {
-  const { regionals } = state.regionalScores
+  const { regionals } = state.kaas
   return { regionals }
 }
 

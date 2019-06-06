@@ -4,6 +4,7 @@ let endpoints = {
   competition: '/competition',
   season: '/season',
   league: '/league',
+  regional: '/regional',
   regionalScores: '/score/regional',
 }
 
@@ -34,6 +35,14 @@ const api = {
   
   async getLeagues() {
     const response = await fetch(endpoints.league, {
+      method: 'GET',
+    });
+
+    return response.json();
+  },
+  
+  async getRegionals() {
+    const response = await fetch(endpoints.regional, {
       method: 'GET',
     });
 

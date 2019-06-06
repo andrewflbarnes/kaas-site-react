@@ -1,28 +1,46 @@
 import React from 'react';
-import { Provider } from 'react-redux'
+import { connect } from 'react-redux'
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import RegionalScores from './RegionalScores';
 import Navigation from './Navigation';
+import Racing from './Racing'
 import Home from './Home'
-import store from './store'
+import { getData } from './common/action_creators'
+import { bindActionCreators } from 'redux';
 
-export default class App extends React.Component {
+// TODO function / PureComponent
+export class RawApp extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+    this.props.getData()
+  }
+
   render() {
     return (
       <div className="App px-0" >
-        <Provider store={store}>
-          <Router>
-            <Navigation />
-            <div className="App col-lg-10 offset-lg-1 px-0">
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/seeding" component={RegionalScores} />
-              </Switch>
-            </div>
-          </Router>
-        </Provider>
+        <Router>
+          <Navigation />
+          <div className="col-lg-10 offset-lg-1 px-0">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/seeding" component={RegionalScores} />
+              <Route path="/racing" component={Racing} />
+            </Switch>
+          </div>
+        </Router>
       </div>
     )
   }
 }
+
+const mapDispatchTooProps = dispatch => {
+  return bindActionCreators({getData}, dispatch)
+}
+
+const App = connect(null, mapDispatchTooProps)(RawApp)
+
+export default App

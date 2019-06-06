@@ -1,16 +1,18 @@
 import {
   SET_REGIONAL_SCORES,
+  SET_ORGANISATIONS,
   SET_COMPETITIONS,
   SET_SEASONS,
   SET_LEAGUES,
   SET_REGIONALS
 } from './action_names'
-import api from '../api';
+import api from '../api'
+import * as kaas from './kaas_helper'
 
-export function setRegionalScores(scores) {
+export function setOrganisations(organisations) {
   return {
-    type: SET_REGIONAL_SCORES,
-    scores
+    type: SET_ORGANISATIONS,
+    organisations
   }
 }
 
@@ -42,10 +44,17 @@ export function setRegionals(regionals) {
   }
 }
 
+export function setRegionalScores(scores) {
+  return {
+    type: SET_REGIONAL_SCORES,
+    scores
+  }
+}
+
 export function getData() {
   return dispatch => {
     api.getOrganisations().then(organisations => {
-      console.log(organisations)
+      dispatch(setOrganisations(organisations))
     })
     api.getCompetitions().then(competitions => {
       dispatch(setCompetitions(competitions.map(c => c.name)))
@@ -55,6 +64,14 @@ export function getData() {
     })
     api.getLeagues().then(leagues => {
       dispatch(setLeagues(leagues.map(l => l.name)))
+    })
+    api.getRegionals().then(regionals => {
+      dispatch(setRegionals(regionals))
+    })
+    api.getRegionalScores().then(regionalScores => {
+      dispatch(setRegionalScores(
+        kaas.accumulateLeague(regionalScores)
+      ))
     })
   }
 }
