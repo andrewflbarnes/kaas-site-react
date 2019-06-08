@@ -1,1 +1,1 @@
-export { default } from './components/RegionalScoresByLeague';
+export { default } from './RegionalScores';

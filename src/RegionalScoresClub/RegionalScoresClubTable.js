@@ -4,11 +4,18 @@ import Collapse from 'react-bootstrap/Collapse'
 
 const ROUND_COLUMN_WIDTH_PC = 12.5
 
-export default class RegionalScoresClubRow extends React.PureComponent {
+export default class RegionalScoresClubTable extends React.Component {
+
+  shouldComponentUpdate(nextProps) {
+    const { divisions, isCollapsed } = this.props
+    const { divisions: nextDivisions, isCollapsed: nextCollapsed } = nextProps
+
+    return divisions != nextDivisions || isCollapsed != nextCollapsed
+  }
 
   render() {
-    const { club, regionals, isCollapsed, title } = this.props
-    
+    const { divisions, regionals, isCollapsed, title } = this.props
+
     // +1 for total
     const teamColSize = (100 - (regionals.length + 1) * ROUND_COLUMN_WIDTH_PC)
     const nClass = { width: `${teamColSize}%`}
@@ -17,7 +24,7 @@ export default class RegionalScoresClubRow extends React.PureComponent {
     return (
       <Collapse in={isCollapsed}>
         <div>
-          {club.divisions.map(d =>
+          {divisions.map(d =>
             <div key={d.name}>
               <h6 className="mt-1 mb-0 col-12" >{d.name}</h6>
               {<Table bordered variant="dark">
@@ -26,7 +33,7 @@ export default class RegionalScoresClubRow extends React.PureComponent {
                     <tr>
                       <th style={nClass}>Name</th>
                       {regionals.map(r =>
-                        <th style={rClass}>{r.name}</th>
+                        <th key={r.name} style={rClass}>{r.name}</th>
                       )}
                       <th style={rClass}>Total</th>
                     </tr>

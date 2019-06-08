@@ -65,10 +65,10 @@ export class RawNavigation extends React.Component {
         <div>
           <span className="mx-2">Filters{ filterNames.length ? '' : ' : None' }</span>
           { filterNames.map(f => (
-            <>
+            <div key={f}>
               <span>-></span>
               <span className="mx-2"> {f.charAt(0).toUpperCase() + f.slice(1)} : {activeFilters[f]}</span>
-            </>
+            </div>
           ))}
         </div>
 

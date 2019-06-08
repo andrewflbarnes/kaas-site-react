@@ -11,10 +11,6 @@ import { bindActionCreators } from 'redux';
 
 // TODO function / PureComponent
 export class RawApp extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     this.props.getData()
   }
