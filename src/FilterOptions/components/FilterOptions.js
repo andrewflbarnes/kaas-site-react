@@ -33,7 +33,6 @@ export function RawFilterOptions({
       <FilterSelect title="Season" type="season" list={seasons} current={season}/>
       <FilterSelect title="League" type="league" list={leagues} current={league}/>
       <div className="col-12 d-flex justify-content-between">
-      {/* <div className="col-md-6 offset-md-3"> */} 
         <Button className="col-3 mx-auto" variant="outline-success" onClick={applyAndToggle}>Apply</Button>
         <Button className="col-3 mx-auto" variant="outline-warning" onClick={cancelAndToggle}>Cancel</Button>
         <Button className="col-3 mx-auto" variant="outline-danger" onClick={resetAndToggle}>Reset</Button>
