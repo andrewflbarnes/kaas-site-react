@@ -5,40 +5,42 @@ import FilterSelect from './FilterSelect'
 import Button from 'react-bootstrap/Button';
 import * as actions from '../action_creators'
 
-export function RawFilterOptions({
-  competitions, competition,
-  seasons, season,
-  leagues, league,
-  onFilterActivated,
-  applyFilters, cancelFilters, resetFilters
-}) {
-  function applyAndToggle() {
-    applyFilters()
-    onFilterActivated()
-  }
+export class RawFilterOptions extends React.PureComponent {
+  render() {
+    const {competitions, competition,
+      seasons, season,
+      leagues, league,
+      onFilterActivated,
+      applyFilters, cancelFilters, resetFilters
+    } = this.props
+    function applyAndToggle() {
+      applyFilters()
+      onFilterActivated()
+    }
 
-  function cancelAndToggle() {
-    cancelFilters()
-    onFilterActivated()
-  }
+    function cancelAndToggle() {
+      cancelFilters()
+      onFilterActivated()
+    }
 
-  function resetAndToggle() {
-    resetFilters()
-    onFilterActivated()
-  }
+    function resetAndToggle() {
+      resetFilters()
+      onFilterActivated()
+    }
 
-  return (
-    <>
-      <FilterSelect title="Competition" type="competition" list={competitions} current={competition}/>
-      <FilterSelect title="Season" type="season" list={seasons} current={season}/>
-      <FilterSelect title="League" type="league" list={leagues} current={league}/>
-      <div className="col-12 d-flex justify-content-between">
-        <Button className="col-3 mx-auto" variant="outline-success" onClick={applyAndToggle}>Apply</Button>
-        <Button className="col-3 mx-auto" variant="outline-warning" onClick={cancelAndToggle}>Cancel</Button>
-        <Button className="col-3 mx-auto" variant="outline-danger" onClick={resetAndToggle}>Reset</Button>
-      </div>
-    </>
-  )
+    return (
+      <>
+        <FilterSelect title="Competition" type="competition" list={competitions} current={competition}/>
+        <FilterSelect title="Season" type="season" list={seasons} current={season}/>
+        <FilterSelect title="League" type="league" list={leagues} current={league}/>
+        <div className="col-12 d-flex justify-content-between">
+          <Button className="col-3 mx-auto" variant="outline-success" onClick={applyAndToggle}>Apply</Button>
+          <Button className="col-3 mx-auto" variant="outline-warning" onClick={cancelAndToggle}>Cancel</Button>
+          <Button className="col-3 mx-auto" variant="outline-danger" onClick={resetAndToggle}>Reset</Button>
+        </div>
+      </>
+    )
+  }
 }
 
 const mapStateToProps = state => {

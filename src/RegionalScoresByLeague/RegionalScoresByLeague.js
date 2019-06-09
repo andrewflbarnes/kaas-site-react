@@ -1,8 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import RegionalScoresLeague from '../RegionalScoresLeague'
+import isEqual from 'react-fast-compare'
 
-export class RawRegionalScoresByLeague extends React.PureComponent {
+export class RawRegionalScoresByLeague extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    const { filteredScores, regionals } = this.props
+    const { filteredScores: nextFilteredScores, regionals: nextRegionals } = nextProps
+    return !isEqual(filteredScores, nextFilteredScores)
+      || !isEqual(regionals, nextRegionals)
+  }
+
   render() {
     const { filteredScores, regionals: allRegionals } = this.props
 
