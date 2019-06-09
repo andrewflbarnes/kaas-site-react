@@ -8,10 +8,10 @@ export default class RegionalScoresClub extends React.PureComponent {
 
     this.state = {}
 
-    this.handleCollapse = this.handleCollapse.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleCollapse(item) {
+  handleClick(item) {
     const open = this.state[item]
     this.setState({
       [item]: !open
@@ -25,7 +25,7 @@ export default class RegionalScoresClub extends React.PureComponent {
       <>
         <RegionalScoresClubButton
           clubName={name}
-          onCollapse={this.handleCollapse}
+          onClick={this.handleClick}
         />
         <RegionalScoresClubTable
           divisions={divisions}

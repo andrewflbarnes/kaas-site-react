@@ -5,7 +5,8 @@ import Button from 'react-bootstrap/Button'
 import Nav from 'react-bootstrap/Nav'
 import Modal from 'react-bootstrap/Modal'
 import Navbar from 'react-bootstrap/Navbar'
-import FilterOptions from '../FilterOptions/components/FilterOptions'
+import FilterOptions from '../FilterOptions'
+import FilterDisplay from '../FilterDisplay'
 import * as actions from '../FilterOptions/action_creators'
 
 export class RawNavigation extends React.Component {
@@ -62,15 +63,7 @@ export class RawNavigation extends React.Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <div>
-          <span className="mx-2">Filters{ filterNames.length ? '' : ' : None' }</span>
-          { filterNames.map(f => (
-            <div key={f}>
-              <span>-></span>
-              <span className="mx-2"> {f.charAt(0).toUpperCase() + f.slice(1)} : {activeFilters[f]}</span>
-            </div>
-          ))}
-        </div>
+        <FilterDisplay filters={activeFilters}/>
 
         <Modal show={showFilters} onHide={handleHide}>
           <Modal.Body>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export class RegionalScoresByLeagueHeader extends React.PureComponent {
+export class RegionalScoresLeagueHeader extends React.PureComponent {
   render() {
     const {competition, season, league } = this.props
 
