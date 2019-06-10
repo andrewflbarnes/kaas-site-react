@@ -6,8 +6,8 @@ import {
 } from './action_names'
 
 const initialState = {
-  activeFilters: [],
-  nextFilters: [],
+  activeFilters: {},
+  nextFilters: {},
 }
 
 function filters(state = initialState, action) {

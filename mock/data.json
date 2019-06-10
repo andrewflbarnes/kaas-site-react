@@ -32,6 +32,10 @@
         {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 1","division":"Mixed","position":1,"score":20},
         {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 2","division":"Mixed","position":1,"score":20},
         {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 3","division":"Mixed","position":0,"score":0},
-        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 4","division":"Mixed","position":0,"score":0}
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 4","division":"Mixed","position":0,"score":0},
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 1","division":"Ladies","position":1,"score":10},
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 2","division":"Ladies","position":1,"score":6},
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 3","division":"Ladies","position":0,"score":8},
+        {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 4","division":"Ladies","position":0,"score":3}
     ]
 }

@@ -1,69 +1,42 @@
 import React from 'react';
-import { Provider } from 'react-redux'
+import { connect } from 'react-redux'
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
-import RegionalScores from './RegionalScores';
-import FilterOptions from './FilterOptions'
+import RegionalScoresByLeague from './RegionalScoresByLeague';
 import Navigation from './Navigation';
-import Collapse from 'react-bootstrap/Collapse'
-import store from './store'
+import Racing from './Racing'
+import Home from './Home'
+import { getData } from './common/action_creators'
+import { bindActionCreators } from 'redux';
 
-export default class App extends React.Component {
-  constructor() {
-    super()
-
-    this.state = {
-      showFilters: false,
-      expandNavbar: false
-    }
-
-    this.toggleShowFilters = this.toggleShowFilters.bind(this)
-    this.toggleExpandNavbar = this.toggleExpandNavbar.bind(this)
-    this.handleFilterActivated = this.handleFilterActivated.bind(this)
-  }
-
-  toggleExpandNavbar() {
-    const { expandNavbar } = this.state
-    this.setState({
-      expandNavbar: !expandNavbar,
-    })
-  }
-
-  toggleShowFilters() {
-    const { showFilters } = this.state
-    this.setState({
-      showFilters: !showFilters
-    })
-  }
-
-  handleFilterActivated() {
-    this.setState({
-      showFilters: false,
-      expandNavbar: false
-    })
+// TODO function / PureComponent
+export class RawApp extends React.Component {
+  componentDidMount() {
+    this.props.getData()
   }
 
   render() {
-    const { state, toggleShowFilters, toggleExpandNavbar } = this
-    const { expandNavbar, showFilters } = state
-
-    const navProps = {
-      toggleShowFilters,
-      toggleExpandNavbar,
-      expandNavbar
-    }
-
     return (
-      <div className="App col-lg-10 offset-lg-1 px-0" >
-        <Provider store={store}>
-          <Navigation {...navProps} />
-          <Collapse in={showFilters}>
-            <div>
-              <FilterOptions onFilterActivated={this.handleFilterActivated} />
-            </div>
-          </Collapse>
-          <RegionalScores />
-        </Provider>
+      <div className="App px-0" >
+        <Router>
+          <Navigation />
+          <div className="col-lg-10 offset-lg-1 px-0">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/seeding" component={RegionalScoresByLeague} />
+              <Route path="/racing" component={Racing} />
+            </Switch>
+          </div>
+        </Router>
       </div>
     )
   }
 }
+
+const mapDispatchTooProps = dispatch => {
+  return bindActionCreators({getData}, dispatch)
+}
+
+const App = connect(null, mapDispatchTooProps)(RawApp)
+
+export default App

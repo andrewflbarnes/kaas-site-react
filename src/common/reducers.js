@@ -1,5 +1,6 @@
 import {
   SET_REGIONAL_SCORES,
+  SET_ORGANISATIONS,
   SET_COMPETITIONS,
   SET_SEASONS,
   SET_LEAGUES,
@@ -8,18 +9,24 @@ import {
 
 const initialState = {
   scores: [],
+  organisations: [],
+  competitions: [],
   leagues: [],
   seasons: [],
-  competitions: [],
   regionals: []
 }
 
-function regionalScores(state = initialState, action) {
+function kaas(state = initialState, action) {
   switch (action.type) {
     case SET_REGIONAL_SCORES:
       return {
         ...state,
         scores: action.scores
+      }
+    case SET_ORGANISATIONS:
+      return {
+        ...state,
+        organisations: action.organisations
       }
     case SET_COMPETITIONS:
       return {
@@ -46,4 +53,4 @@ function regionalScores(state = initialState, action) {
   }
 }
 
-export default regionalScores
+export default kaas

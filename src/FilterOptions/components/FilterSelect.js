@@ -5,7 +5,7 @@ import Collapse from 'react-bootstrap/Collapse'
 import Button from 'react-bootstrap/Button'
 import * as actions from '../action_creators'
 
-export class RawFilterSelect extends React.Component {
+export class RawFilterSelect extends React.PureComponent {
   constructor() {
     super()
 
@@ -49,14 +49,10 @@ export class RawFilterSelect extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {}
-};
-
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(actions, dispatch);
 };
 
-const FilterSelect = connect(mapStateToProps, mapDispatchToProps)(RawFilterSelect);
+const FilterSelect = connect(null, mapDispatchToProps)(RawFilterSelect);
 
 export default FilterSelect
