@@ -1,14 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import RegionalScoresLeague from '../RegionalScoresLeague'
-import isEqual from 'react-fast-compare'
+import { havePropsOrStateChanged } from '../common/kaas_helper';
 
 export class RawRegionalScoresByLeague extends React.Component {
   shouldComponentUpdate(nextProps) {
-    const { filteredScores, regionals } = this.props
-    const { filteredScores: nextFilteredScores, regionals: nextRegionals } = nextProps
-    return !isEqual(filteredScores, nextFilteredScores)
-      || !isEqual(regionals, nextRegionals)
+    return havePropsOrStateChanged(this.props, nextProps, ['filteredScores', 'regionals'])
   }
 
   render() {
@@ -43,16 +40,16 @@ export class RawRegionalScoresByLeague extends React.Component {
 
 const mapStateToProps = state => {
   const { filters: { activeFilters }, kaas: { scores, regionals }} = state
-  const { competition: activeCompetition, season: activeSeason, league: activeLeague } = activeFilters
+  const { competition, season, league } = activeFilters
 
   const filteredScores = scores.filter(e => {
-    if (activeCompetition && e.competition !== activeCompetition) {
+    if (competition && e.competition !== competition) {
       return false
     }
-    if (activeSeason && e.season !== activeSeason) {
+    if (season && e.season !== season) {
       return false
     }
-    if (activeLeague && e.league !== activeLeague) {
+    if (league && e.league !== league) {
       return false
     }
 

@@ -1,16 +1,13 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
 import Collapse from 'react-bootstrap/Collapse'
+import { havePropsOrStateChanged } from '../common/kaas_helper';
 
 const ROUND_COLUMN_WIDTH_PC = 12.5
 
 export default class RegionalScoresClubTable extends React.Component {
-
   shouldComponentUpdate(nextProps) {
-    const { divisions, isCollapsed } = this.props
-    const { divisions: nextDivisions, isCollapsed: nextCollapsed } = nextProps
-
-    return divisions != nextDivisions || isCollapsed != nextCollapsed
+    return havePropsOrStateChanged(this.props, nextProps, ['divisions', 'isCollapsed', 'regionals', 'title'])
   }
 
   render() {

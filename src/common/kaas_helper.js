@@ -1,3 +1,5 @@
+import isEqual from 'react-fast-compare'
+
 /**
  * Takes a flat structure of scores and converts them to a nested one
  * 
@@ -114,4 +116,33 @@ export function reduceToUnique(objects, name, reverseOrder = false) {
   ).sort((i, j) =>
     reverseOrder ? j.localeCompare(i) : i.localeCompare(j)
   )
+}
+
+/**
+ * Note that both props and state are processed the same - as a result if you only
+ * want to check state changes you can use the first 3 arguments.
+ * 
+ * Similarly when checking both state and props it doesn't matter whether you
+ * provide the state related args first or the prop related args first.
+ * 
+ * @param {*} props
+ * @param {*} nextProps
+ * @param {*} propNames
+ * @param {*} state
+ * @param {*} nextState
+ * @param {*} stateNames
+ */
+export function havePropsOrStateChanged(props = {}, nextProps = {}, propNames = [], state = {}, nextState = {}, stateNames = []) {
+  let shouldRender = false
+  propNames.forEach(name => {
+    shouldRender = shouldRender ? shouldRender : !isEqual(props[name], nextProps[name])
+  })
+
+  if (!shouldRender) {
+    stateNames.forEach(name => {
+      shouldRender = shouldRender ? shouldRender : !isEqual(state[name], nextState[name])
+    })
+  }
+
+  return shouldRender
 }

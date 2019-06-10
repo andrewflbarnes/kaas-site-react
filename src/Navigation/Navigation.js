@@ -46,7 +46,6 @@ export class RawNavigation extends React.Component {
     const { handleHide, toggleShowFilters, handleFilterActivated, state, props } = this
     const { showFilters } = state
     const { activeFilters } = props
-    const filterNames = Object.keys(activeFilters)
 
     return (
       <>
