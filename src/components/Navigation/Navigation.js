@@ -7,7 +7,8 @@ import Modal from 'react-bootstrap/Modal'
 import Navbar from 'react-bootstrap/Navbar'
 import FilterOptions from '../FilterOptions'
 import FilterDisplay from '../FilterDisplay'
-import * as actions from '../FilterOptions/action_creators'
+import ErrorBar from '../ErrorBar'
+import * as actions from '../../state/filters/action_creators'
 
 export class RawNavigation extends React.Component {
   constructor(props) {
@@ -45,7 +46,7 @@ export class RawNavigation extends React.Component {
   render() {
     const { handleHide, toggleShowFilters, handleFilterActivated, state, props } = this
     const { showFilters } = state
-    const { activeFilters } = props
+    const { status, activeFilters } = props
 
     return (
       <>
@@ -62,6 +63,9 @@ export class RawNavigation extends React.Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
+
+        {status.length > 0 && <ErrorBar />}
+
         <FilterDisplay filters={activeFilters}/>
 
         <Modal show={showFilters} onHide={handleHide}>
@@ -75,10 +79,11 @@ export class RawNavigation extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { filters: { activeFilters } } = state
+  const { status, filters: { activeFilters } } = state
 
   return {
-    activeFilters
+    activeFilters,
+    status
   }
 }
 

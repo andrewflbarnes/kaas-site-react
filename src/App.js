@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
-import RegionalScoresByLeague from './RegionalScoresByLeague';
-import Navigation from './Navigation';
-import Racing from './Racing'
-import Home from './Home'
-import { getData } from './common/action_creators'
+import Navigation from './components/Navigation';
+import RegionalScoresByLeague from './pages/RegionalScoresByLeague';
+import Racing from './pages/Racing'
+import Home from './pages/Home'
+import { getData } from './state/kaas/action_creators'
 import { bindActionCreators } from 'redux';
 
 // TODO function / PureComponent

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Collapse from 'react-bootstrap/Collapse'
 import Button from 'react-bootstrap/Button'
-import * as actions from '../action_creators'
+import * as actions from '../../state/filters/action_creators'
 
 export class RawFilterSelect extends React.PureComponent {
   constructor() {

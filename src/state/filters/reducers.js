@@ -36,8 +36,8 @@ function filters(state = initialState, action) {
     case RESET_FILTERS:
       return {
         ...state,
-        nextFilters: [],
-        activeFilters: [],
+        nextFilters: {},
+        activeFilters: {},
       }
     default:
       return state

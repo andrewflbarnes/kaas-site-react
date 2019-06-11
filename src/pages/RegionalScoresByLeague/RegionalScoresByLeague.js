@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import RegionalScoresLeague from '../RegionalScoresLeague'
-import { havePropsOrStateChanged } from '../common/kaas_helper';
+import RegionalScoresLeague from '../../components/RegionalScoresLeague'
+import { havePropsOrStateChanged } from '../../common/kaas_helper';
 
 export class RawRegionalScoresByLeague extends React.Component {
   shouldComponentUpdate(nextProps) {

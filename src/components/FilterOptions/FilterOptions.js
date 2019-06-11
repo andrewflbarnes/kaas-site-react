@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import FilterSelect from './FilterSelect'
 import Button from 'react-bootstrap/Button';
-import * as actions from '../action_creators'
+import * as actions from '../../state/filters/action_creators'
 
 export class RawFilterOptions extends React.PureComponent {
   render() {

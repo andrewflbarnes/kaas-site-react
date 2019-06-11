@@ -1,11 +1,4 @@
-import {
-  SET_REGIONAL_SCORES,
-  SET_ORGANISATIONS,
-  SET_COMPETITIONS,
-  SET_SEASONS,
-  SET_LEAGUES,
-  SET_REGIONALS
-} from './action_names'
+import * as actions from './action_names'
 
 const initialState = {
   scores: [],
@@ -18,32 +11,32 @@ const initialState = {
 
 function kaas(state = initialState, action) {
   switch (action.type) {
-    case SET_REGIONAL_SCORES:
+    case actions.SET_REGIONAL_SCORES:
       return {
         ...state,
         scores: action.scores
       }
-    case SET_ORGANISATIONS:
+    case actions.SET_ORGANISATIONS:
       return {
         ...state,
         organisations: action.organisations
       }
-    case SET_COMPETITIONS:
+    case actions.SET_COMPETITIONS:
       return {
         ...state,
         competitions: action.competitions
       }
-    case SET_SEASONS:
+    case actions.SET_SEASONS:
       return {
         ...state,
         seasons: action.seasons
       }
-    case SET_LEAGUES:
+    case actions.SET_LEAGUES:
       return {
         ...state,
         leagues: action.leagues
       }
-    case SET_REGIONALS:
+    case actions.SET_REGIONALS:
       return {
         ...state,
         regionals: action.regionals
