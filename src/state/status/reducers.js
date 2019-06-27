@@ -1,23 +1,10 @@
-import * as actions from './action_names'
+import { combineReducers } from 'redux'
+import errors from './errors'
+import loading from './loading'
 
-const initialState = []
+const status = combineReducers({
+  errors,
+  loading
+});
 
-function status(state = initialState, action) {
-  switch (action.type) {
-    case actions.SET_FETCH_ERROR:
-      const { error, endpoint } = action
-      return [
-        ...state,
-        {
-          endpoint,
-          error
-        }
-      ]
-    case actions.CLEAR_FETCH_ERROR:
-      return initialState
-    default:
-      return state
-  }
-}
-
-export default status
+export default status;

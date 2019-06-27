@@ -49,11 +49,11 @@ const mapStateToProps = state => {
   const { competition, season, league } = filters.nextFilters
 
   return {
-    competitions,
+    competitions: competitions.map(c => c.name),
     competition,
-    seasons,
+    seasons: seasons.map(s => s.name),
     season,
-    leagues,
+    leagues: leagues.map(l => l.name),
     league
   }
 }

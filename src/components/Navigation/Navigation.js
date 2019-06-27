@@ -1,16 +1,14 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Button from 'react-bootstrap/Button'
-import Nav from 'react-bootstrap/Nav'
-import Modal from 'react-bootstrap/Modal'
-import Navbar from 'react-bootstrap/Navbar'
-import FilterOptions from '../FilterOptions'
+import NavigationBar from './NavigationBar'
 import FilterDisplay from '../FilterDisplay'
+import FilterOptionsModal from '../FilterOptionsModal'
 import ErrorBar from '../ErrorBar'
 import * as actions from '../../state/filters/action_creators'
+import StatusBar from '../StatusBar/SttatusBar';
 
-export class RawNavigation extends React.Component {
+export class RawNavigation extends React.PureComponent {
   constructor(props) {
     super(props)
 
@@ -50,29 +48,17 @@ export class RawNavigation extends React.Component {
 
     return (
       <>
-        <Navbar sticky="top" bg="light" expand="md">
-          <Navbar.Brand href="#">KAAS</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="#seeding">Seeding</Nav.Link>
-              <Nav.Link href="#racing">Racing</Nav.Link>
-              <Button className="text-secondary" variant="none" onClick={toggleShowFilters}>
-                Filters
-              </Button>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-
-        {status.length > 0 && <ErrorBar />}
+        <NavigationBar toggleShowFilters={toggleShowFilters}/>
+        
+        <StatusBar {...status} />
 
         <FilterDisplay filters={activeFilters}/>
 
-        <Modal show={showFilters} onHide={handleHide}>
-          <Modal.Body>
-            <FilterOptions onFilterActivated={handleFilterActivated} />
-          </Modal.Body>
-        </Modal>
+        <FilterOptionsModal
+          show={showFilters}
+          onHide={handleHide}
+          onFilterActivated={handleFilterActivated}
+        />
       </>
     )
   }

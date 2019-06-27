@@ -3,15 +3,20 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Collapse from 'react-bootstrap/Collapse'
 import Button from 'react-bootstrap/Button'
+import { havePropsOrStateChanged } from '../../common/kaas_helper'
 import * as actions from '../../state/filters/action_creators'
 
-export class RawFilterSelect extends React.PureComponent {
+export class RawFilterSelect extends React.Component {
   constructor() {
     super()
 
     this.state = {
       open: false
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return havePropsOrStateChanged(this.props, nextProps, ['title', 'list', 'current'], this.state, nextState, ['open'])
   }
 
   toggleItemAndCollapse(item) {
@@ -26,6 +31,7 @@ export class RawFilterSelect extends React.PureComponent {
   render(){
     const { title, list, current } = this.props
     const { open } = this.state
+
     return(
       <>
         <Button className="col-12 rounded-0" variant="none" onClick={() => this.setState({ open: !open })}>
