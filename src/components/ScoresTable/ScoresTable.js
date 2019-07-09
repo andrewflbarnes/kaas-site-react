@@ -10,12 +10,39 @@ export default class ScoresTable extends React.Component {
   }
 
   render() {
-    const { teams, regionals, title } = this.props
+    const { scores, regionals, title } = this.props
 
     // +1 for total
     const teamColSize = (100 - (regionals.length + 1) * ROUND_COLUMN_WIDTH_PC)
     const nClass = { width: `${teamColSize}%`}
     const rClass = { width: `${ROUND_COLUMN_WIDTH_PC}%`}
+
+    const teams = []
+    scores.forEach(s => {
+      teams.includes(s.team) || teams.push(s.team)
+    })
+
+    console.table(regionals)
+
+    const data = teams.map(t => {
+      return {
+        name: t,
+        scores: scores.filter(s =>
+          s.team === t
+        ).reduce((acc, s) => {
+          const { score } = s
+          return {
+            ...acc,
+            [s.regional]: score,
+            total: acc.total + score
+          }
+        }, { total: 0 })
+      }
+    }).sort((i, j) => {
+      return j.scores.total - i.scores.total
+    })
+
+    console.log(data)
 
     return (
       <Table bordered variant="dark">
@@ -31,11 +58,11 @@ export default class ScoresTable extends React.Component {
           </thead>
         }
         <tbody>
-          {teams.map(t =>
+          {data.map(t =>
             <tr key={t.name}>
               <td style={nClass}>{t.name}</td>
               {regionals.map(r =>
-                  <th key={r.name} style={rClass}>{t.scores[r.name]}</th>
+                  <th key={r.name} style={rClass}>{t.scores[r.name] || 0}</th>
               )}
               <th style={rClass}>{t.scores.total}</th>
             </tr>

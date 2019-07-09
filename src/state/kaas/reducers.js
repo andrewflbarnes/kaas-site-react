@@ -11,10 +11,15 @@ const initialState = {
 
 function kaas(state = initialState, action) {
   switch (action.type) {
-    case actions.SET_REGIONAL_SCORES:
+    case actions.SET_SCORES:
       return {
         ...state,
         scores: action.scores
+      }
+    case actions.SET_HIERARCHY:
+      return {
+        ...state,
+        hierarchy: action.hierarchy
       }
     case actions.SET_ORGANISATIONS:
       return {
@@ -30,6 +35,11 @@ function kaas(state = initialState, action) {
       return {
         ...state,
         seasons: action.seasons
+      }
+    case actions.SET_DIVISIONS:
+      return {
+        ...state,
+        divisions: action.divisions
       }
     case actions.SET_LEAGUES:
       return {

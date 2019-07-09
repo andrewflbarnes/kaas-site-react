@@ -1,8 +1,9 @@
 import React from 'react'
-import RegionalScoresClub from '../RegionalScoresClub'
+import ScoresTables from '../ScoresTables'
 import RegionalScoresLeagueHeader from './RegionalScoresLeagueHeader';
 
-export function RawRegionalScoresLeague({ competition, season, league, clubs, regionals }) {
+export function RawRegionalScoresLeague({ competition, season, league, scores, divisions, regionals }) {
+  console.log(regionals)
   return (
     <>
       <RegionalScoresLeagueHeader
@@ -10,13 +11,14 @@ export function RawRegionalScoresLeague({ competition, season, league, clubs, re
         season={season}
         league={league}
       />
-      {clubs.map(c =>
-        <RegionalScoresClub
-          key={c.name}
-          {...c}
-          regionals={regionals}
-        />
-      )}
+
+      <ScoresTables
+        scores={scores}
+        isCollapsed={true}
+        regionals={regionals}
+        divisions={divisions}
+        title={false}
+      />
     </>
   )
 }

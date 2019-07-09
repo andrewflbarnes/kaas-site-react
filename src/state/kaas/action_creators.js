@@ -24,6 +24,13 @@ export function setSeasons(seasons) {
   }
 }
 
+export function setDivisions(divisions) {
+  return {
+    type: actions.SET_DIVISIONS,
+    divisions
+  }
+}
+
 export function setLeagues(leagues) {
   return {
     type: actions.SET_LEAGUES,
@@ -38,17 +45,26 @@ export function setRegionals(regionals) {
   }
 }
 
-export function setRegionalScores(scores) {
+export function setScores(scores) {
   return {
-    type: actions.SET_REGIONAL_SCORES,
+    type: actions.SET_SCORES,
     scores
   }
 }
 
-function fetchAndDispatch(dispatch, api, action) {
+export function setHierarchy(hierarchy) {
+  return {
+    type: actions.SET_HIERARCHY,
+    hierarchy
+  }
+}
+
+function fetchAndDispatch(dispatch, api, ...actions) {
   dispatch(statusActions.setLoading())
   api()
-    .then(res => dispatch(action(res)))
+    .then(res => {
+      actions.forEach(action => dispatch(action(res)))
+    })
     .catch(error => dispatch(statusActions.setFetchError(api.name, error.message)))
     .then(res => dispatch(statusActions.setLoaded()))
 }
@@ -61,6 +77,10 @@ export function getData() {
     fetchAndDispatch(dispatch, api.getSeasons, setSeasons)
     fetchAndDispatch(dispatch, api.getLeagues, setLeagues)
     fetchAndDispatch(dispatch, api.getRegionals, setRegionals)
-    fetchAndDispatch(dispatch, api.getRegionalScores, res => setRegionalScores(kaas.accumulateLeague(res)))
+    fetchAndDispatch(dispatch, api.getRegionalScores,
+      res => setScores(res),
+      res => setDivisions(kaas.accumulateDivisions(res)),
+      res => setHierarchy(kaas.accumulateLeagueDivisionClub(res))
+    )
   }
 }

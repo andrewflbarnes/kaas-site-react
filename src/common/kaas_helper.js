@@ -1,11 +1,19 @@
 import isEqual from 'react-fast-compare'
 
+export function accumulateDivisions(scores) {
+  return scores.reduce((acc, cur) => {
+    const { division } = cur
+    acc.includes(division) || acc.push(division)
+    return acc
+  }, []);
+}
+
 /**
  * Takes a flat structure of scores and converts them to a nested one
  * 
  * @param {*} scores 
  */
-export function accumulateLeague(scores) {
+export function accumulateLeagueDivisionClub(scores) {
   return scores.sort((i, j) => {
     const { competition: iCompetition, season: iSeason, league: iLeague } = i
     const { competition: jCompetition, season: jSeason, league: jLeague } = j
@@ -135,14 +143,33 @@ export function reduceToUnique(objects, name, reverseOrder = false) {
 export function havePropsOrStateChanged(props = {}, nextProps = {}, propNames = [], state = {}, nextState = {}, stateNames = []) {
   let shouldRender = false
   propNames.forEach(name => {
-    shouldRender = shouldRender ? shouldRender : !isEqual(props[name], nextProps[name])
+    shouldRender = shouldRender || !isEqual(props[name], nextProps[name])
   })
 
   if (!shouldRender) {
     stateNames.forEach(name => {
-      shouldRender = shouldRender ? shouldRender : !isEqual(state[name], nextState[name])
+      shouldRender = shouldRender || !isEqual(state[name], nextState[name])
     })
   }
 
   return shouldRender
+}
+
+
+export function arePropsOrStateStillUndefined(props = {}, nextProps = {}, propNames = [], state = {}, nextState = {}, stateNames = []) {
+  let wasDefined = true
+  let isDefined = true
+  propNames.forEach(name => {
+    wasDefined = wasDefined && props[name]
+    isDefined = isDefined && nextProps[name]
+  })
+
+  if (!wasDefined && !isDefined) {
+    stateNames.forEach(name => {
+      wasDefined = wasDefined && state[name]
+      isDefined = isDefined && nextState[name]
+    })
+  }
+
+  return !wasDefined && !isDefined
 }

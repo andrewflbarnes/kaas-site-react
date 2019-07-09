@@ -4,9 +4,8 @@ import { connect } from 'react-redux'
 import NavigationBar from './NavigationBar'
 import FilterDisplay from '../FilterDisplay'
 import FilterOptionsModal from '../FilterOptionsModal'
-import ErrorBar from '../ErrorBar'
 import * as actions from '../../state/filters/action_creators'
-import StatusBar from '../StatusBar/SttatusBar';
+import StatusBar from '../StatusBar';
 
 export class RawNavigation extends React.PureComponent {
   constructor(props) {

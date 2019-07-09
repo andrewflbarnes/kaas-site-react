@@ -1,6 +1,6 @@
 import React from 'react'
 import RegionalScoresClubButton from './RegionalScoresClubButton'
-import RegionalScoresClubTable from './RegionalScoresClubTable';
+import ScoresTables from '../ScoresTables';
 
 export default class RegionalScoresClub extends React.PureComponent {
   constructor(props) {
@@ -27,8 +27,8 @@ export default class RegionalScoresClub extends React.PureComponent {
           clubName={name}
           onClick={this.handleClick}
         />
-        <RegionalScoresClubTable
-          divisions={divisions}
+        <ScoresTables
+          hierarchy={divisions}
           isCollapsed={this.state[name]}
           regionals={regionals}
           title={title}

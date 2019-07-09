@@ -11,6 +11,7 @@ export function RawNavigationBar({ toggleShowFilters }) {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="#seeding">Seeding</Nav.Link>
+          <Nav.Link href="#seeding2">Clubs</Nav.Link>
           <Nav.Link href="#racing">Racing</Nav.Link>
           <Button className="text-secondary" variant="none" onClick={toggleShowFilters}>
             Filters

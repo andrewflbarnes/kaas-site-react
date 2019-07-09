@@ -13,6 +13,7 @@ export class RawFilterOptions extends React.PureComponent {
       onFilterActivated,
       applyFilters, cancelFilters, resetFilters
     } = this.props
+    
     function applyAndToggle() {
       applyFilters()
       onFilterActivated()
