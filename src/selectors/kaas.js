@@ -50,12 +50,9 @@ export const getFilteredRegionals = createSelector(
 export const getFilteredLeagues = createSelector(
   [getActiveFilters, getLeagues],
   (activeFilters, leagues) => {
-    const { competition, season, league } = activeFilters
+    const { competition, league } = activeFilters
     return leagues.filter(e => {
       if (competition && e.competition !== competition) {
-        return false
-      }
-      if (season && e.season !== season) {
         return false
       }
       if (league && e.name !== league) {

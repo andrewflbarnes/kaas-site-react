@@ -2,19 +2,20 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { havePropsOrStateChanged } from '../../common/kaas_helper';
 import RegionalScoresLeagueClub from '../../components/RegionalScoresLeagueClub';
+import * as kaasSelectors from '../../selectors/kaas'
 
 export class RawRegionalScoresByLeagueAndClub extends React.Component {
   shouldComponentUpdate(nextProps) {
-    return havePropsOrStateChanged(this.props, nextProps, ['filteredScores', 'regionals'])
+    return havePropsOrStateChanged(this.props, nextProps, ['scores', 'regionals'])
   }
 
   render() {
-    const { filteredScores, regionals: allRegionals } = this.props
+    const { scores, regionals: allRegionals } = this.props
 
     return (
       <>
-        {filteredScores.length > 0
-          ? filteredScores.map(e => {
+        {scores.length > 0
+          ? scores.map(e => {
             const { competition, season, league } = e
             const regionals = allRegionals.filter(r => 
               r.competition === competition &&
@@ -39,26 +40,9 @@ export class RawRegionalScoresByLeagueAndClub extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { filters: { activeFilters }, kaas: { scores, regionals }} = state
-  const { competition, season, league } = activeFilters
-
-  const filteredScores = scores.filter(e => {
-    if (competition && e.competition !== competition) {
-      return false
-    }
-    if (season && e.season !== season) {
-      return false
-    }
-    if (league && e.league !== league) {
-      return false
-    }
-
-    return true
-  })
-
   return {
-    filteredScores,
-    regionals
+    scores: kaasSelectors.getFilteredScores(state),
+    regionals: kaasSelectors.getFilteredRegionals(state)
   }
 }
 

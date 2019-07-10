@@ -17,12 +17,10 @@ export default class ScoresTable extends React.Component {
     const nClass = { width: `${teamColSize}%`}
     const rClass = { width: `${ROUND_COLUMN_WIDTH_PC}%`}
 
-    const teams = []
-    scores.forEach(s => {
-      teams.includes(s.team) || teams.push(s.team)
-    })
-
-    console.table(regionals)
+    const teams = scores.reduce((acc, curr) => {
+      acc.includes(curr.team) || acc.push(curr.team)
+      return acc
+    }, [])
 
     const data = teams.map(t => {
       return {
@@ -42,33 +40,33 @@ export default class ScoresTable extends React.Component {
       return j.scores.total - i.scores.total
     })
 
-    console.log(data)
-
-    return (
-      <Table bordered variant="dark">
-        {title &&
-          <thead>
-            <tr>
-              <th style={nClass}>Name</th>
-              {regionals.map(r =>
-                <th key={r.name} style={rClass}>{r.name}</th>
-              )}
-              <th style={rClass}>Total</th>
-            </tr>
-          </thead>
-        }
-        <tbody>
-          {data.map(t =>
-            <tr key={t.name}>
-              <td style={nClass}>{t.name}</td>
-              {regionals.map(r =>
-                  <th key={r.name} style={rClass}>{t.scores[r.name] || 0}</th>
-              )}
-              <th style={rClass}>{t.scores.total}</th>
-            </tr>
-          )}
-        </tbody>
-      </Table>
-    )
+    return data.length > 0
+    ? (
+        <Table bordered variant="dark">
+          {title &&
+            <thead>
+              <tr>
+                <th style={nClass}>Name</th>
+                {regionals.map(r =>
+                  <th key={r.name} style={rClass}>{r.name}</th>
+                )}
+                <th style={rClass}>Total</th>
+              </tr>
+            </thead>
+          }
+          <tbody>
+            {data.map(t =>
+              <tr key={t.name}>
+                <td style={nClass}>{t.name}</td>
+                {regionals.map(r =>
+                    <th key={r.name} style={rClass}>{t.scores[r.name] || 0}</th>
+                )}
+                <th style={rClass}>{t.scores.total}</th>
+              </tr>
+            )}
+          </tbody>
+        </Table>
+      )
+    : <h6>No Results</h6>
   }
 }
