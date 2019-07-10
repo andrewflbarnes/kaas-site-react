@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import RegionalScoresLeague from '../../components/RegionalScoresLeague'
 import * as kaas_helper from '../../common/kaas_helper';
+import * as kaasSelectors from '../../selectors/kaas'
 
 export class RawRegionalScoresByLeague extends React.Component {
   shouldComponentUpdate(nextProps) {
@@ -41,69 +42,14 @@ export class RawRegionalScoresByLeague extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { filters: { activeFilters }, kaas: { leagues, scores, divisions, regionals, seasons }} = state
-  const { competition, season, league } = activeFilters
-
-  // TODO move all filters to reducers/action_creators
-  const filteredScores = scores.filter(e => {
-    if (competition && e.competition !== competition) {
-      return false
-    }
-    if (season && e.season !== season) {
-      return false
-    }
-    if (league && e.league !== league) {
-      return false
-    }
-
-    return true
-  })
-
-  const filteredRegionals = regionals.filter(e => {
-    if (competition && e.competition !== competition) {
-      return false
-    }
-    if (season && e.season !== season) {
-      return false
-    }
-    if (league && e.league !== league) {
-      return false
-    }
-
-    return true
-  })
-
-  const filteredLeagues = leagues.filter(e => {
-    if (competition && e.competition !== competition) {
-      return false
-    }
-    if (season && e.season !== season) {
-      return false
-    }
-    if (league && e.name !== league) {
-      return false
-    }
-
-    return true
-  })
-
-  const filteredSeasons = seasons.filter(e => {
-    if (competition && e.competition !== competition) {
-      return false
-    }
-    if (season && e.name !== season) {
-      return false
-    }
-
-    return true
-  })
+  const { kaas: { divisions }} = state
 
   return {
-    scores: filteredScores,
-    leagues: filteredLeagues,
+    scores: kaasSelectors.getFilteredScores(state),
+    leagues: kaasSelectors.getFilteredLeagues(state),
     divisions,
-    seasons: filteredSeasons,
-    regionals: filteredRegionals,
+    seasons: kaasSelectors.getFitleredSeasons(state),
+    regionals: kaasSelectors.getFilteredRegionals(state),
   }
 }
 

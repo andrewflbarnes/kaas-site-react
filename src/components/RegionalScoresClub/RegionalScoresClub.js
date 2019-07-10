@@ -27,6 +27,7 @@ export default class RegionalScoresClub extends React.PureComponent {
           clubName={name}
           onClick={this.handleClick}
         />
+        
         <ScoresTables
           hierarchy={divisions}
           isCollapsed={this.state[name]}

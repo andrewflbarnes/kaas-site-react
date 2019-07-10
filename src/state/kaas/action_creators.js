@@ -66,7 +66,7 @@ function fetchAndDispatch(dispatch, api, ...actions) {
       actions.forEach(action => dispatch(action(res)))
     })
     .catch(error => dispatch(statusActions.setFetchError(api.name, error.message)))
-    .then(res => dispatch(statusActions.setLoaded()))
+    .then(() => dispatch(statusActions.setLoaded()))
 }
 
 export function getData() {
