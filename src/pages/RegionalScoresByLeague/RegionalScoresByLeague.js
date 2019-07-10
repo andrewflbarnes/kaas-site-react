@@ -47,7 +47,7 @@ const mapStateToProps = state => {
   return {
     scores: kaasSelectors.getFilteredScores(state),
     leagues: kaasSelectors.getFilteredLeagues(state),
-    divisions,
+    divisions: kaasSelectors.getFilteredDivisions(state),
     seasons: kaasSelectors.getFitleredSeasons(state),
     regionals: kaasSelectors.getFilteredRegionals(state),
   }

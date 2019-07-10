@@ -5,6 +5,7 @@ export const getScores = state => state.kaas.scores
 export const getRegionals = state => state.kaas.regionals
 export const getLeagues = state => state.kaas.leagues
 export const getSeasons = state => state.kaas.seasons
+export const getDivisions = state => state.kaas.divisions
 
 export const getFilteredScores = createSelector(
   [getActiveFilters, getScores],
@@ -69,7 +70,7 @@ export const getFilteredLeagues = createSelector(
 export const getFitleredSeasons = createSelector(
   [getActiveFilters, getSeasons],
   (activeFilters, seasons) => {
-    const { competition, season, league } = activeFilters
+    const { competition, season } = activeFilters
     return seasons.filter(e => {
       if (competition && e.competition !== competition) {
         return false
@@ -81,4 +82,9 @@ export const getFitleredSeasons = createSelector(
       return true
     })
   }
+)
+
+export const getFilteredDivisions = createSelector(
+  [getDivisions],
+  divisions => divisions
 )
