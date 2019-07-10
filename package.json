@@ -2,7 +2,7 @@
   "name": "kaas-site-react",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:9080",
+  "proxy": "http://localhost:9180",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "react": "^16.8.6",
@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "mock": "cd mock && json-server --watch data.json --routes routes.json --port 9080",
+    "mock": "cd mock && json-server --watch data.json --routes routes.json --port 9180",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
