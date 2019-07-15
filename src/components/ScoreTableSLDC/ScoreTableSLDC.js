@@ -34,6 +34,7 @@ export class RawScoreTableSLDC extends React.Component {
     return (
       <div key={`${seasonName}`}>
         {seasonTitle && <ScoreHeader h2 name={seasonName}/>}
+        {this.renderLeague(seasonName, "All")}
         {leagues.map(league => 
           this.renderLeague(seasonName, league.name)
         )}
@@ -58,6 +59,10 @@ export class RawScoreTableSLDC extends React.Component {
 
   renderDivision(seasonName, leagueName, divisionName) {
     const { scores, regionals, title, clubName } = this.props
+
+    if (leagueName === "All") {
+      leagueName = undefined
+    }
 
     return (
       <div key={`${seasonName}_${leagueName}_${divisionName}`}>

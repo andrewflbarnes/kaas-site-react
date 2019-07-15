@@ -11,7 +11,11 @@ export class RawScoresTable extends React.Component {
   }
 
   render() {
-    const { scores, regionals, title } = this.props
+    const { scores, regionals: allRegionals, title } = this.props
+
+    const regionals = allRegionals.filter((regional, _, check) =>
+      check.find(r => r.name === regional.name) === regional
+    )
 
     // +1 for total
     const teamColSize = (100 - (regionals.length + 1) * ROUND_COLUMN_WIDTH_PC)
