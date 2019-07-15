@@ -1,44 +1,54 @@
-import {
-  UPDATE_NEXT_FILTER,
-  APPLY_FILTERS,
-  CANCEL_FILTERS,
-  RESET_FILTERS
-} from './action_names'
+import * as actions from './action_names'
+import * as kaasActions from '../kaas/action_names'
 
 const initialState = {
-  activeFilters: {},
-  nextFilters: {},
+  activeFilters: {}
 }
 
 function filters(state = initialState, action) {
-  const { activeFilters, nextFilters } = state
+  const { activeFilters } = state
 
   switch (action.type) {
-    case UPDATE_NEXT_FILTER:
+    case kaasActions.SET_ORGANISATIONS:
+      return {
+        ...state,
+        activeFilters: {
+          ...activeFilters,
+          "organisation": action.organisations[0].name
+        }
+      }
+    case kaasActions.SET_COMPETITIONS:
+      return {
+        ...state,
+        activeFilters: {
+          ...activeFilters,
+          "competition": action.competitions[0].name
+        }
+      }
+    case kaasActions.SET_SEASONS:
+      return {
+        ...state,
+        activeFilters: {
+          ...activeFilters,
+          "season": action.seasons[0].name
+        }
+      }
+    case actions.UPDATE_FILTER:
       const { filter } = action
       return {
         ...state,
-        nextFilters: {
-          ...nextFilters,
+        activeFilters: {
+          ...activeFilters,
           [filter.type]: filter.value
         }
       }
-    case APPLY_FILTERS:
-      return {
-        ...state,
-        activeFilters: nextFilters,
-      }
-    case CANCEL_FILTERS:
-      return {
-        ...state,
-        nextFilters: activeFilters,
-      }
-    case RESET_FILTERS:
-      return {
-        ...state,
-        nextFilters: {},
-        activeFilters: {},
-      }
+    case actions.RESET_FILTERS:
+      // return {
+      //   ...state,
+      //   nextFilters: {},
+      //   activeFilters: {},
+      // }
+      return state
     default:
       return state
   }

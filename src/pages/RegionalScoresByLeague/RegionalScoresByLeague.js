@@ -1,11 +1,10 @@
 import React from 'react'
-import RegionalScoresLeagues from '../../components/RegionalScoresLeagues';
+import ScoreTableSLDC from '../../components/ScoreTableSLDC';
 
-export default class RegionalScoresByLeague extends React.Component {
-
-  render() {
-    return (
-      <RegionalScoresLeagues />
-    )
-  }
+export function RawRegionalScoresByLeague() {
+  return <ScoreTableSLDC />
 }
+
+const RegionalScoresByLeague = React.memo(RawRegionalScoresByLeague)
+
+export default RegionalScoresByLeague

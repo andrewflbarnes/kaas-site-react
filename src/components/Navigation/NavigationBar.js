@@ -1,9 +1,9 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import FilterDropdowns from '../FilterDropdowns'
 
-export function RawNavigationBar({ toggleShowFilters }) {
+export function RawNavigationBar() {
   return (
     <Navbar sticky="top" bg="light" expand="md">
       <Navbar.Brand href="#">KAAS</Navbar.Brand>
@@ -11,11 +11,10 @@ export function RawNavigationBar({ toggleShowFilters }) {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="#seeding">Seeding</Nav.Link>
-          <Nav.Link href="#seeding2">Clubs</Nav.Link>
           <Nav.Link href="#racing">Racing</Nav.Link>
-          <Button className="text-secondary" variant="none" onClick={toggleShowFilters}>
-            Filters
-          </Button>
+        </Nav>
+        <Nav>
+          <FilterDropdowns />
         </Nav>
       </Navbar.Collapse>
     </Navbar>

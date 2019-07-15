@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect'
 
 export const getActiveFilters = state => state.filters.activeFilters
+export const getOrganisations = state => state.kaas.organisations
+export const getCompetitions = state => state.kaas.competitions
 export const getScores = state => state.kaas.scores
 export const getRegionals = state => state.kaas.regionals
 export const getLeagues = state => state.kaas.leagues

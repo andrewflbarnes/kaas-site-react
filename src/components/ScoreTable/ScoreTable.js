@@ -1,10 +1,11 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
 import { havePropsOrStateChanged } from '../../common/kaas_helper';
+import collapsing from '../../hoc/Collapsing'
 
 const ROUND_COLUMN_WIDTH_PC = 12.5
 
-export default class ScoresTable extends React.Component {
+export class RawScoresTable extends React.Component {
   shouldComponentUpdate(nextProps) {
     return havePropsOrStateChanged(this.props, nextProps, ['regionals', 'title'])
   }
@@ -70,3 +71,7 @@ export default class ScoresTable extends React.Component {
     : <h6>No Results</h6>
   }
 }
+
+const ScoreTable = collapsing(RawScoresTable)
+
+export default ScoreTable
