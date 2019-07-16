@@ -5,8 +5,13 @@ import FilterDropdowns from '../FilterDropdowns'
 
 export function RawNavigationBar() {
   return (
-    <Navbar sticky="top" bg="light" expand="md">
-      <Navbar.Brand href="#">KAAS</Navbar.Brand>
+    <Navbar
+      className="mb-2"
+      sticky="top"
+      variant="dark"
+      expand="md"
+    >
+      <Navbar.Brand className="text-primary" href="#"><b>Kings</b> Ski Club</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">

@@ -5,6 +5,12 @@ const initialState = {
   activeFilters: {}
 }
 
+function getCurrentName(elements) {
+  return elements.sort((i, j) =>
+    j.name.localeCompare(i.name)
+  )[0].name
+}
+
 function filters(state = initialState, action) {
   const { activeFilters } = state
 
@@ -14,7 +20,7 @@ function filters(state = initialState, action) {
         ...state,
         activeFilters: {
           ...activeFilters,
-          "organisation": action.organisations[0].name
+          "organisation": getCurrentName(action.organisations)
         }
       }
     case kaasActions.SET_COMPETITIONS:
@@ -22,7 +28,7 @@ function filters(state = initialState, action) {
         ...state,
         activeFilters: {
           ...activeFilters,
-          "competition": action.competitions[0].name
+          "competition": getCurrentName(action.competitions)
         }
       }
     case kaasActions.SET_SEASONS:
@@ -30,7 +36,7 @@ function filters(state = initialState, action) {
         ...state,
         activeFilters: {
           ...activeFilters,
-          "season": action.seasons[0].name
+          "season": getCurrentName(action.seasons)
         }
       }
     case actions.UPDATE_FILTER:

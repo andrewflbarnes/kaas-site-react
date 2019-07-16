@@ -17,11 +17,6 @@ function kaas(state = initialState, action) {
         ...state,
         scores: action.scores
       }
-    case actions.SET_HIERARCHY:
-      return {
-        ...state,
-        hierarchy: action.hierarchy
-      }
     case actions.SET_ORGANISATIONS:
       return {
         ...state,

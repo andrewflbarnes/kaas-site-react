@@ -66,7 +66,7 @@ export const getFilteredLeagues = createSelector(
   }
 )
 
-export const getFitleredSeasons = createSelector(
+export const getFilteredSeasons = createSelector(
   [getActiveFilters, getSeasons],
   (activeFilters, seasons) => {
     const { competition, season } = activeFilters

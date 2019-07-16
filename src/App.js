@@ -9,8 +9,7 @@ import Home from './pages/Home'
 import { getData } from './state/kaas/action_creators'
 import { bindActionCreators } from 'redux';
 
-// TODO function / PureComponent
-export class RawApp extends React.Component {
+export class RawApp extends React.PureComponent {
   componentDidMount() {
     this.props.getData()
   }

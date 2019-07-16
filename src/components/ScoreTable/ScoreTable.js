@@ -6,14 +6,15 @@ const ROUND_COLUMN_WIDTH_PC = 12.5
 
 export default class ScoreTable extends React.Component {
   shouldComponentUpdate(nextProps) {
-    return havePropsOrStateChanged(this.props, nextProps, ['scores', 'regionals', 'title'])
+    return havePropsOrStateChanged(this.props, nextProps, ['scores', 'regionals', 'title', 'position'])
   }
 
   render() {
-    const { scores, regionals, title } = this.props
+    const { scores, regionals, title, position } = this.props
 
-    // +1 for total
-    const teamColSize = (100 - (regionals.length + 1) * ROUND_COLUMN_WIDTH_PC)
+    // +1 for total, optional col for position
+    const positionCol = position ? 1 : 0
+    const teamColSize = (100 - (regionals.length + 1 + positionCol) * ROUND_COLUMN_WIDTH_PC)
     const nClass = { width: `${teamColSize}%`}
     const rClass = { width: `${ROUND_COLUMN_WIDTH_PC}%`}
 
@@ -43,10 +44,14 @@ export default class ScoreTable extends React.Component {
 
     return data.length > 0
     ? (
-        <Table bordered variant="dark">
+        <Table
+          className="my-3"
+          hover
+        >
           {title &&
             <thead>
               <tr>
+                {position && <th style={rClass}>Pos.</th>}
                 <th style={nClass}>Name</th>
                 {regionals.map(r =>
                   <th key={r.name} style={rClass}>{r.name}</th>
@@ -56,13 +61,14 @@ export default class ScoreTable extends React.Component {
             </thead>
           }
           <tbody>
-            {data.map(t =>
+            {data.map((t, i) =>
               <tr key={t.name}>
+                {position && <td style={rClass}>{i + 1}</td>}
                 <td style={nClass}>{t.name}</td>
                 {regionals.map(r =>
-                    <th key={r.name} style={rClass}>{t.scores[r.name] || 0}</th>
+                    <td key={r.name} style={rClass}>{t.scores[r.name] || 0}</td>
                 )}
-                <th style={rClass}>{t.scores.total}</th>
+                <td style={rClass}>{t.scores.total}</td>
               </tr>
             )}
           </tbody>

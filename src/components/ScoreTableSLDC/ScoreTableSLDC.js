@@ -101,6 +101,7 @@ export class RawScoreTableSLDC extends React.Component {
           leagueName={leagueName}
           divisionName={divisionName}
           title={title}
+          position
         />
       </div>
     )
@@ -111,7 +112,7 @@ const mapStateToProps = state => {
   return {
     leagues: kaasSelectors.getFilteredLeagues(state),
     divisions: kaasSelectors.getFilteredDivisions(state),
-    seasons: kaasSelectors.getFitleredSeasons(state),
+    seasons: kaasSelectors.getFilteredSeasons(state),
   }
 }
 
