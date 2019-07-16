@@ -52,13 +52,6 @@ export function setScores(scores) {
   }
 }
 
-export function setHierarchy(hierarchy) {
-  return {
-    type: actions.SET_HIERARCHY,
-    hierarchy
-  }
-}
-
 function fetchAndDispatch(dispatch, api, ...actions) {
   dispatch(statusActions.setLoading())
   api()
@@ -80,7 +73,6 @@ export function getData() {
     fetchAndDispatch(dispatch, api.getRegionalScores,
       res => setScores(res),
       res => setDivisions(kaas.accumulateDivisions(res)),
-      res => setHierarchy(kaas.accumulateLeagueDivisionClub(res))
     )
   }
 }

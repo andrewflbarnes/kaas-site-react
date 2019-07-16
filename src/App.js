@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import Navigation from './components/Navigation';
-import RegionalScoresByLeague from './pages/RegionalScoresByLeague';
+import Seeding from './pages/Seeding';
 import Racing from './pages/Racing'
 import Home from './pages/Home'
 import { getData } from './state/kaas/action_creators'
@@ -23,7 +23,7 @@ export class RawApp extends React.Component {
           <div className="col-lg-10 offset-lg-1 px-0">
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/seeding" component={RegionalScoresByLeague} />
+              <Route path="/seeding" component={Seeding} />
               <Route path="/racing" component={Racing} />
             </Switch>
           </div>

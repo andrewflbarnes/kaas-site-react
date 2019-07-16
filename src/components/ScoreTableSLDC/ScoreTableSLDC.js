@@ -1,26 +1,68 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import ScoreTable from '../ScoreTable'
+import ScoreTableAuto from '../ScoreTableAuto'
 import { havePropsOrStateChanged, arePropsOrStateStillUndefined } from '../../common/kaas_helper';
 import * as kaasSelectors from '../../selectors/kaas'
 import ScoreHeader from './ScoreHeader';
+import Selector from './Selector'
 
 export class RawScoreTableSLDC extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    if (arePropsOrStateStillUndefined(this.props, nextProps, ['scores', 'seasons', 'leagues', 'divisions', 'regionals'])) {
+  constructor() {
+    super()
+
+    this.state = {
+      league: undefined,
+      division: undefined
+    }
+
+    this.handleLeagueSelection = this.handleLeagueSelection.bind(this)
+    this.handleDivisionSelection = this.handleDivisionSelection.bind(this)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (arePropsOrStateStillUndefined(this.props, nextProps, ['seasons', 'leagues', 'divisions'])) {
       return false
     }
-    return havePropsOrStateChanged(this.props, nextProps, ['scores', 'seasons', 'leagues', 'divisions', 'regionals', 'title'])
+    return havePropsOrStateChanged(
+      this.props, nextProps, ['seasons', 'leagues', 'divisions', 'title'],
+      this.state, nextState, ['league', 'division'])
+  }
+
+  handleLeagueSelection = league => {
+    this.setState({
+      league
+    })
+  }
+
+  handleDivisionSelection = division => {
+    this.setState({
+      division
+    })
   }
 
   render() {
-    const { scores, seasons, leagues, divisions, regionals } = this.props
+    const { seasons, leagues, divisions } = this.props
+    const { league, division } = this.state
+
     const seasonTitle = seasons.length > 1
 
     // Short circuit if not able to render
     // TODO check this is appropriate
-    return scores && seasons && leagues && divisions && regionals
+    return seasons && leagues && divisions
     ? <>
+        <Selector
+          elements={leagues}
+          match={league}
+          onSelect={this.handleLeagueSelection}
+          all
+        />
+        {league &&
+          <Selector
+            elements={divisions}
+            match={division}
+            onSelect={this.handleDivisionSelection}
+          />
+        }
         {seasons.map(season => 
           this.renderSeason(season.name, seasonTitle)
         )}
@@ -29,55 +71,35 @@ export class RawScoreTableSLDC extends React.Component {
   }
 
   renderSeason(seasonName, seasonTitle) {
-    const { leagues } = this.props
+    const { league } = this.state
 
     return (
       <div key={`${seasonName}`}>
         {seasonTitle && <ScoreHeader h2 name={seasonName}/>}
-        {this.renderLeague(seasonName, "All")}
-        {leagues.map(league => 
-          this.renderLeague(seasonName, league.name)
-        )}
+        {league && this.renderLeague(seasonName, league)}
       </div>
     )
   }
 
   renderLeague(seasonName, leagueName) {
-    const { divisions } = this.props
+    const { division } = this.state
 
     return (
-      <div key={`${seasonName}_${leagueName}`}>
-        <ScoreHeader h3 name={leagueName}/>
-        {divisions.map(division =>
-          <div key={division}>
-            {this.renderDivision(seasonName, leagueName, division)}
-          </div>
-        )}
+      <div key={`${leagueName}`}>
+        {division && this.renderDivision(seasonName, leagueName, division)}
       </div>
     )
   }
 
   renderDivision(seasonName, leagueName, divisionName) {
-    const { scores, regionals, title, clubName } = this.props
-
-    if (leagueName === "All") {
-      leagueName = undefined
-    }
+    const { title } = this.props
 
     return (
       <div key={`${seasonName}_${leagueName}_${divisionName}`}>
-        <ScoreHeader h6 name={divisionName}/>
-        <ScoreTable
-          regionals={regionals.filter(r =>
-            (!leagueName || r.league === leagueName) &&
-            (!seasonName || r.season === seasonName)
-          )}
-          scores={scores.filter(s => 
-            (!divisionName || s.division === divisionName) &&
-            (!leagueName || s.league === leagueName) &&
-            (!seasonName || s.season === seasonName) &&
-            (!clubName || s.club === clubName)
-          )}
+        <ScoreTableAuto
+          seasonName={seasonName}
+          leagueName={leagueName}
+          divisionName={divisionName}
           title={title}
         />
       </div>
@@ -87,11 +109,9 @@ export class RawScoreTableSLDC extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    scores: kaasSelectors.getFilteredScores(state),
     leagues: kaasSelectors.getFilteredLeagues(state),
     divisions: kaasSelectors.getFilteredDivisions(state),
     seasons: kaasSelectors.getFitleredSeasons(state),
-    regionals: kaasSelectors.getFilteredRegionals(state),
   }
 }
 

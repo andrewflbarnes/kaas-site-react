@@ -6,7 +6,8 @@ const initialState = {
   competitions: [],
   leagues: [],
   seasons: [],
-  regionals: []
+  regionals: [],
+  divisions: []
 }
 
 function kaas(state = initialState, action) {

@@ -85,5 +85,5 @@ export const getFitleredSeasons = createSelector(
 
 export const getFilteredDivisions = createSelector(
   [getDivisions],
-  divisions => divisions
+  divisions => divisions.map(d => { return { name: d }})
 )
