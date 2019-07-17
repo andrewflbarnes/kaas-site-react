@@ -6,7 +6,7 @@ import FilterDropdowns from '../FilterDropdowns'
 export function RawNavigationBar() {
   return (
     <Navbar
-      className="mb-2"
+      className="mb-2 border-bottom border-top border-primary"
       sticky="top"
       variant="dark"
       expand="md"

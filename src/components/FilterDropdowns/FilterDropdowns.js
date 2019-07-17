@@ -34,6 +34,10 @@ export class RawOrganisationBar extends React.Component {
   }
 
   renderDropdown(type, elements) {
+    if (elements.length < 1) {
+      return ''
+    }
+
     const allText = `All ${type}s`
     const current = this.props.filters[type] || allText
 
