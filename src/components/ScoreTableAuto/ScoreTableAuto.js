@@ -7,7 +7,8 @@ import ScoreTable from '../ScoreTable/ScoreTable';
 
 export class RawScoreTableAuto extends React.Component {
   render() {
-    return <ScoreTable {...this.props} />
+    const league = this.props.leagueName === 'All'
+    return <ScoreTable league={league} {...this.props} />
   }
 }
 

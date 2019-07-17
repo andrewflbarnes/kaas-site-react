@@ -1,34 +1,45 @@
 import React from 'react'
+import Badge from 'react-bootstrap/Badge'
 import Table from 'react-bootstrap/Table'
 import { havePropsOrStateChanged } from '../../common/kaas_helper';
 
-const ROUND_COLUMN_WIDTH_PC = 12.5
+const ROUND_COLUMN_WIDTH_PC = 10
 
 export default class ScoreTable extends React.Component {
   shouldComponentUpdate(nextProps) {
-    return havePropsOrStateChanged(this.props, nextProps, ['scores', 'regionals', 'title', 'position'])
+    return havePropsOrStateChanged(this.props, nextProps, ['scores', 'regionals', 'title', 'position', 'league'])
   }
 
   render() {
-    const { scores, regionals, title, position } = this.props
+    const { scores, regionals, title, position, league } = this.props
 
-    // +1 for total, optional col for position
+    // +1 column for total, optional columns for position and league
     const positionCol = position ? 1 : 0
-    const teamColSize = (100 - (regionals.length + 1 + positionCol) * ROUND_COLUMN_WIDTH_PC)
-    const nClass = { width: `${teamColSize}%`}
-    const rClass = { width: `${ROUND_COLUMN_WIDTH_PC}%`}
+    const leagueCol = league ? 1 : 0
 
+    const nameColSize = (100 - (regionals.length + 1 + positionCol + leagueCol) * ROUND_COLUMN_WIDTH_PC)
+
+    const tdNameStyle = { width: `${nameColSize}%`}
+    const tdStyle = { width: `${ROUND_COLUMN_WIDTH_PC}%`}
+
+    // Get a unique array of teams (store found teams in names and corresponding structs in teams)
     const teams = scores.reduce((acc, curr) => {
-      acc.includes(curr.team) || acc.push(curr.team)
+      const { team, league } = curr
+      acc.names.includes(team) ||
+        acc.names.push(team) && acc.teams.push({ team, league })
       return acc
-    }, [])
+    }, { teams: [], names: []})
 
     // TODO create selector
-    const data = teams.map(t => {
+    // Map the unique team structs into a single data structure containing
+    // - team details
+    // - reduced scores struct for each regional and total score (default 0)
+    const data = teams.teams.map(t => {
       return {
-        name: t,
+        name: t.team,
+        league: t.league,
         scores: scores.filter(s =>
-          s.team === t
+          s.team === t.team
         ).reduce((acc, s) => {
           const { score } = s
           return {
@@ -49,31 +60,83 @@ export default class ScoreTable extends React.Component {
           hover
         >
           {title &&
-            <thead>
-              <tr>
-                {position && <th style={rClass}>Pos.</th>}
-                <th style={nClass}>Name</th>
-                {regionals.map(r =>
-                  <th key={r.name} style={rClass}>{r.name}</th>
-                )}
-                <th style={rClass}>Total</th>
-              </tr>
-            </thead>
+            this.renderTableHeader(tdStyle, tdNameStyle)
           }
           <tbody>
-            {data.map((t, i) =>
-              <tr key={t.name}>
-                {position && <td style={rClass}>{i + 1}</td>}
-                <td style={nClass}>{t.name}</td>
-                {regionals.map(r =>
-                    <td key={r.name} style={rClass}>{t.scores[r.name] || 0}</td>
-                )}
-                <td style={rClass}>{t.scores.total}</td>
-              </tr>
+            {data.map((team, i) =>
+              this.renderTableRow(team, i)
             )}
           </tbody>
         </Table>
       )
     : <h6>No Results</h6>
+  }
+
+  renderTableHeader(defaultStyle, nameStyle) {
+    const { position, league, regionals } = this.props
+
+    return (
+      <thead>
+        <tr>
+          {league &&
+            this.renderTh('', defaultStyle)
+          }
+          {position &&
+            this.renderTh('Pos.', defaultStyle)
+          }
+          {this.renderTh('Name', nameStyle)}
+          {regionals.map(r =>
+            this.renderTh(r.name, defaultStyle)
+          )}
+          {this.renderTh('Total', defaultStyle)}
+        </tr>
+      </thead>
+    )
+  }
+
+  renderTh(text, style = {}, className = '') {
+    return (
+      <th
+        key={text}
+        style={style}
+        className={className + ' px-0'}>
+        {text}
+      </th>
+    )
+  }
+
+  renderTableRow(team, i) {
+    const { position, league, regionals } = this.props
+    
+    return (
+      <tr key={team.name}>
+        {league &&
+          <td>
+            <Badge
+              pill
+              variant="primary"
+            >
+              {team.league}
+            </Badge>
+          </td>
+        }
+        {position &&
+          <td>
+            {i + 1}
+          </td>
+        }
+        <td className="px-0">
+          {team.name}
+        </td>
+        {regionals.map(r =>
+          <td key={r.name}>
+            {team.scores[r.name] || 0}
+          </td>
+        )}
+        <td>
+          {team.scores.total}
+        </td>
+      </tr>
+    )
   }
 }
