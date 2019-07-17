@@ -8,53 +8,39 @@ let endpoints = {
   regionalScores: '/score/regional',
 }
 
+async function GET(endpoint) {
+  return await fetch(endpoint, {
+    method: 'GET',
+  }).then(response =>
+    response.json()
+  ).catch(error => {
+    throw(error)
+  })
+}
+
 const api = {
   async getOrganisations() {
-    const response = await fetch(endpoints.organisation, {
-      method: 'GET',
-    });
-
-    return response.json();
+    return GET(endpoints.organisation)
   },
 
   async getCompetitions() {
-    const response = await fetch(endpoints.competition, {
-      method: 'GET',
-    });
-
-    return response.json();
+    return GET(endpoints.competition)
   },
 
   async getSeasons() {
-    const response = await fetch(endpoints.season, {
-      method: 'GET',
-    });
-
-    return response.json();
+    return GET(endpoints.season)
   },
   
   async getLeagues() {
-    const response = await fetch(endpoints.league, {
-      method: 'GET',
-    });
-
-    return response.json();
+    return GET(endpoints.league)
   },
   
   async getRegionals() {
-    const response = await fetch(endpoints.regional, {
-      method: 'GET',
-    });
-
-    return response.json();
+    return GET(endpoints.regional)
   },
   
   async getRegionalScores() {
-    const response = await fetch(endpoints.regionalScores, {
-      method: 'GET',
-    });
-
-    return response.json();
+    return GET(endpoints.regionalScores)
   },
 };
 

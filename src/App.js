@@ -2,15 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
-import RegionalScoresByLeague from './RegionalScoresByLeague';
-import Navigation from './Navigation';
-import Racing from './Racing'
-import Home from './Home'
-import { getData } from './common/action_creators'
+import Navigation from './components/Navigation';
+import Seeding from './pages/Seeding';
+import Racing from './pages/Racing'
+import Home from './pages/Home'
+import { getData } from './state/kaas/action_creators'
 import { bindActionCreators } from 'redux';
 
-// TODO function / PureComponent
-export class RawApp extends React.Component {
+export class RawApp extends React.PureComponent {
   componentDidMount() {
     this.props.getData()
   }
@@ -23,7 +22,7 @@ export class RawApp extends React.Component {
           <div className="col-lg-10 offset-lg-1 px-0">
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/seeding" component={RegionalScoresByLeague} />
+              <Route path="/seeding" component={Seeding} />
               <Route path="/racing" component={Racing} />
             </Switch>
           </div>

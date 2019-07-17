@@ -37,5 +37,57 @@
         {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 2","division":"Ladies","position":1,"score":6},
         {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 3","division":"Ladies","position":0,"score":8},
         {"club":"Bath","team":"Bath 1","organisation":"Kings","competition":"Kings Ski","season":"2017/18","league":"Western","regional":"Round 4","division":"Ladies","position":0,"score":3}
+    ],
+    "regional": [
+        {"id":1,"name":"Round 1","season":"2018/19","league":"Northern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":2,"name":"Round 2","season":"2018/19","league":"Northern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":3,"name":"Round 3","season":"2018/19","league":"Northern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":4,"name":"Round 4","season":"2018/19","league":"Northern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":5,"name":"Round 1","season":"2018/19","league":"Western","competition":"Kings Ski","organisation":"Kings"},
+        {"id":6,"name":"Round 2","season":"2018/19","league":"Western","competition":"Kings Ski","organisation":"Kings"},
+        {"id":7,"name":"Round 3","season":"2018/19","league":"Western","competition":"Kings Ski","organisation":"Kings"},
+        {"id":8,"name":"Round 4","season":"2018/19","league":"Western","competition":"Kings Ski","organisation":"Kings"},
+        {"id":9,"name":"Round 1","season":"2018/19","league":"Southern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":10,"name":"Round 2","season":"2018/19","league":"Southern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":11,"name":"Round 3","season":"2018/19","league":"Southern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":12,"name":"Round 4","season":"2018/19","league":"Southern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":13,"name":"Round 1","season":"2018/19","league":"Midlands","competition":"Kings Ski","organisation":"Kings"},
+        {"id":14,"name":"Round 2","season":"2018/19","league":"Midlands","competition":"Kings Ski","organisation":"Kings"},
+        {"id":15,"name":"Round 3","season":"2018/19","league":"Midlands","competition":"Kings Ski","organisation":"Kings"},
+        {"id":16,"name":"Round 4","season":"2018/19","league":"Midlands","competition":"Kings Ski","organisation":"Kings"},
+
+        {"id":17,"name":"Round 1","season":"2017/18","league":"Northern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":18,"name":"Round 2","season":"2017/18","league":"Northern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":19,"name":"Round 3","season":"2017/18","league":"Northern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":20,"name":"Round 4","season":"2017/18","league":"Northern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":21,"name":"Round 1","season":"2017/18","league":"Western","competition":"Kings Ski","organisation":"Kings"},
+        {"id":22,"name":"Round 2","season":"2017/18","league":"Western","competition":"Kings Ski","organisation":"Kings"},
+        {"id":23,"name":"Round 3","season":"2017/18","league":"Western","competition":"Kings Ski","organisation":"Kings"},
+        {"id":24,"name":"Round 4","season":"2017/18","league":"Western","competition":"Kings Ski","organisation":"Kings"},
+        {"id":25,"name":"Round 1","season":"2017/18","league":"Southern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":26,"name":"Round 2","season":"2017/18","league":"Southern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":27,"name":"Round 3","season":"2017/18","league":"Southern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":28,"name":"Round 4","season":"2017/18","league":"Southern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":29,"name":"Round 1","season":"2017/18","league":"Midlands","competition":"Kings Ski","organisation":"Kings"},
+        {"id":30,"name":"Round 2","season":"2017/18","league":"Midlands","competition":"Kings Ski","organisation":"Kings"},
+        {"id":31,"name":"Round 3","season":"2017/18","league":"Midlands","competition":"Kings Ski","organisation":"Kings"},
+        {"id":32,"name":"Round 4","season":"2017/18","league":"Midlands","competition":"Kings Ski","organisation":"Kings"}
+    ],
+    "organisation": [
+        {"id":1,"name":"Kings","competitionCount":1},
+        {"id":2,"name":"Test empty","competitionCount":0}
+    ],
+    "competition": [
+        {"id":1,"name":"Kings Ski","organisation":"Kings"}
+    ],
+    "season": [
+        {"id":1,"name":"2018/19","competition":"Kings Ski","organisation":"Kings"},
+        {"id":2,"name":"2017/18","competition":"Kings Ski","organisation":"Kings"}
+    ],
+    "league": [
+        {"id":2,"name":"Midlands","competition":"Kings Ski","organisation":"Kings"},
+        {"id":1,"name":"Northern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":3,"name":"Southern","competition":"Kings Ski","organisation":"Kings"},
+        {"id":4,"name":"Western","competition":"Kings Ski","organisation":"Kings"}
     ]
 }
