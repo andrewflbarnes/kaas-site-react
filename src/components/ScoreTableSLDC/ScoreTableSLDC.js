@@ -63,9 +63,11 @@ export class RawScoreTableSLDC extends React.Component {
             onSelect={this.handleDivisionSelection}
           />
         }
-        {seasons.map(season => 
-          this.renderSeason(season.name, seasonTitle)
-        )}
+        {league && division &&
+          seasons.map(season => 
+            this.renderSeason(season.name, seasonTitle)
+          )
+        }
       </>
     : <h6>No Results</h6>
   }
