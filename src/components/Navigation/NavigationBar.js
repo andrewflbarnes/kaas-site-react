@@ -9,97 +9,58 @@ import FilterDropdowns from '../FilterDropdowns'
 // - correct center alignment in mobile layout
 // - correct collapse transitioning in mobile layout
 // - correct start/end alignment in desktop layout
-// - 
-// - 
-// - 
-export default class NavigationBar extends React.PureComponent {
-  constructor() {
-    super()
+export default React.memo(() => {
+  const navCollapse = (
+    <Navbar.Collapse id="basic-navbar-nav">
+      <Nav>
+        <Nav.Link href="#seeding">Seeding</Nav.Link>
+        <Nav.Link href="#racing">Racing</Nav.Link>
+      </Nav>
+    </Navbar.Collapse>
+  )
 
-    this.state = {
-      isDesktop: false
-    }
-
-    this.handleResize = this.handleResize.bind(this)
-  }
-
-  componentDidMount() {
-    this.handleResize();
-    window.addEventListener("resize", this.handleResize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize);
-  }
-
-  handleResize() {
-    // Collapse shows by default below the md threshold
-    this.setState({
-      isDesktop: window.innerWidth >= 768
-    })
-  }
-
-  render() {
-    const { isDesktop } = this.state
-    const brandJustify = isDesktop
-      ? 'justify-content-start'
-      : 'justify-content-center'
-
-    const navCollapse = (
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav>
-          <Nav.Link href="#seeding">Seeding</Nav.Link>
-          <Nav.Link href="#racing">Racing</Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    )
-
-    return (
-      <Navbar
-        className={`
-          bg-dark
-          border-bottom border-top border-primary
-          mb-2 justify-content-between
-        `}
-        sticky="top"
-        variant="dark"
-        expand="md"
-        onToggle={this.handleToggle}
+  return (
+    <Navbar
+      className={`
+        bg-dark
+        border-bottom border-top border-primary
+        mb-2 justify-content-between
+      `}
+      sticky="top"
+      variant="dark"
+      expand="md"
+    >
+      <Col
+        xs={4}
+        className='d-md-none d-flex justify-content-start px-0'
       >
-        {!isDesktop &&
-          <Col
-            xs={4}
-            className='d-flex justify-content-start px-0'
-          >
-            <Navbar.Toggle
-              aria-controls="basic-navbar-nav"
-            />
-          </Col>
-        }
-        <Col
-          xs={4}
-          className={'d-flex px-0 ' + brandJustify}
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+        />
+      </Col>
+      <Col
+        xs={4}
+        className='d-flex px-0 justify-content-center justify-content-md-start'
+      >
+        <Navbar.Brand
+          className='text-primary d-flex m-0'
+          href="#"
         >
-          <Navbar.Brand
-            className='text-primary d-flex m-0'
-            href="#"
-          >
-            <b>Kings</b> Ski Club
-          </Navbar.Brand>
-          {isDesktop &&
-            navCollapse
-          }
-        </Col>
-        <Col
-          xs={4}
-          className='d-flex justify-content-end px-0'
-        >
-          <FilterDropdowns/>
-        </Col>
-        {!isDesktop &&
-          navCollapse
-        }
-      </Navbar>
-    )
-  }
-}
+          <b>Kings</b>&nbsp;Ski Club
+        </Navbar.Brand>
+        <div className='d-none d-md-block'>
+          {navCollapse}
+        </div>
+      </Col>
+      <Col
+        xs={4}
+        className='d-flex justify-content-end px-0'
+      >
+        <FilterDropdowns/>
+      </Col>
+      <div className='d-md-none col-12'>
+        {navCollapse}
+      </div>
+    </Navbar>
+  )
+})
