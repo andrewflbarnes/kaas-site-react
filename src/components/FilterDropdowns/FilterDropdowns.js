@@ -3,12 +3,10 @@ import { connect } from 'react-redux'
 import * as kaasSelectors from '../../selectors/kaas'
 import { createStructuredSelector } from 'reselect'
 import Dropdown from 'react-bootstrap/Dropdown'
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Row from 'react-bootstrap/Row'
 import * as actions from '../../state/filters/action_creators'
 import { bindActionCreators } from 'redux'
 
-export class RawOrganisationBar extends React.Component {
+export class RawFilterDropdowns extends React.Component {
   constructor(props) {
     super(props)
 
@@ -25,11 +23,11 @@ export class RawOrganisationBar extends React.Component {
     const { seasons } = this.props
 
     return (
-      <Row className="d-flex justify-content-center">
+      <div className='d-flex justify-content-center'>
         {/* {this.renderDropdown("organisation", organisations)}
         {this.renderDropdown("competition", competitions)} */}
         {this.renderDropdown("season", seasons)}
-      </Row>
+      </div>
     )
   }
 
@@ -42,21 +40,46 @@ export class RawOrganisationBar extends React.Component {
     const current = this.props.filters[type] || allText
 
     return (
-      <DropdownButton
+      <Dropdown
         key={type}
-        className="mr-2"
-        size="sm"
-        title={current}
         drop="left"
         onSelect={eventKey => this.handleSelect(type, eventKey)}
       >
-        <Dropdown.Header>{type}</Dropdown.Header>
-        {elements.map(e => 
-          <Dropdown.Item key={e.name} eventKey={e.name}>{e.name}</Dropdown.Item>
-        )}
-        <Dropdown.Divider />
-        <Dropdown.Item key={allText} eventKey="">{allText}</Dropdown.Item>
-      </DropdownButton>
+        <Dropdown.Toggle
+          size='sm'
+          variant='primary'
+        >
+          {current}
+        </Dropdown.Toggle>
+        <Dropdown.Menu
+          className='bg-dark'
+        >
+          <Dropdown.Header
+            className='text-primary'
+          >
+            {type}
+          </Dropdown.Header>
+          <Dropdown.Divider />
+          <Dropdown.Item
+            variant='dark'
+            className='text-light'
+            key={allText}
+            eventKey=""
+          >
+            {allText}
+          </Dropdown.Item>
+          {elements.map(e =>
+            <Dropdown.Item
+              variant='dark'
+              className='text-light'
+              key={e.name}
+              eventKey={e.name}
+            >
+              {e.name}
+            </Dropdown.Item>
+          )}
+        </Dropdown.Menu>
+      </Dropdown>
     )
   }
 }
@@ -72,6 +95,6 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(actions, dispatch)
 }
 
-const OrganisationBar = connect(mapStateToProps, mapDispatchToProps)(RawOrganisationBar)
+const FilterDropdowns = connect(mapStateToProps, mapDispatchToProps)(RawFilterDropdowns)
 
-export default OrganisationBar
+export default FilterDropdowns
