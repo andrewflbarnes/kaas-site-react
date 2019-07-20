@@ -6,7 +6,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import * as actions from '../../state/filters/action_creators'
 import { bindActionCreators } from 'redux'
 
-export class RawOrganisationBar extends React.Component {
+export class RawFilterDropdowns extends React.Component {
   constructor(props) {
     super(props)
 
@@ -20,10 +20,10 @@ export class RawOrganisationBar extends React.Component {
   }
 
   render() {
-    const { seasons, className } = this.props
+    const { seasons } = this.props
 
     return (
-      <div className={className + " d-flex justify-content-center"}>
+      <div className='d-flex justify-content-center'>
         {/* {this.renderDropdown("organisation", organisations)}
         {this.renderDropdown("competition", competitions)} */}
         {this.renderDropdown("season", seasons)}
@@ -95,6 +95,6 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(actions, dispatch)
 }
 
-const OrganisationBar = connect(mapStateToProps, mapDispatchToProps)(RawOrganisationBar)
+const FilterDropdowns = connect(mapStateToProps, mapDispatchToProps)(RawFilterDropdowns)
 
-export default OrganisationBar
+export default FilterDropdowns
