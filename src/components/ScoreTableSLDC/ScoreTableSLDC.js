@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import ScoreTableAuto from '../ScoreTableAuto'
 import { havePropsOrStateChanged, arePropsOrStateStillUndefined } from '../../common/kaas_helper';
 import * as kaasSelectors from '../../selectors/kaas'
-import ScoreHeader from './ScoreHeader';
 import Selector from './Selector'
 
 export class RawScoreTableSLDC extends React.Component {
@@ -77,7 +76,7 @@ export class RawScoreTableSLDC extends React.Component {
 
     return (
       <div key={`${seasonName}`}>
-        {seasonTitle && <ScoreHeader h2 name={seasonName}/>}
+        {seasonTitle && <h2>{seasonName}</h2>}
         {league && this.renderLeague(seasonName, league)}
       </div>
     )

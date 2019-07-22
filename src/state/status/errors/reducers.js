@@ -3,9 +3,10 @@ import * as actions from '../action_names'
 const initialState = []
 
 function errors(state = initialState, action) {
+  const { error, endpoint } = action
+  
   switch (action.type) {
     case actions.SET_FETCH_ERROR:
-      const { error, endpoint } = action
       return [
         ...state,
         {

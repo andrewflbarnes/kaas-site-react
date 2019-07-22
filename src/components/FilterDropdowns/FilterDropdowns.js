@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as kaasSelectors from '../../selectors/kaas'
 import { createStructuredSelector } from 'reselect'
 import Dropdown from 'react-bootstrap/Dropdown'
-import * as actions from '../../state/filters/action_creators'
 import { bindActionCreators } from 'redux'
+import * as actions from '../../state/filters/action_creators'
+import * as kaasSelectors from '../../selectors/kaas'
 
 export class RawFilterDropdowns extends React.Component {
   constructor(props) {
@@ -19,25 +19,15 @@ export class RawFilterDropdowns extends React.Component {
     updateNextFilter(type, value)
   }
 
-  render() {
-    const { seasons } = this.props
-
-    return (
-      <div className='d-flex justify-content-center'>
-        {/* {this.renderDropdown("organisation", organisations)}
-        {this.renderDropdown("competition", competitions)} */}
-        {this.renderDropdown("season", seasons)}
-      </div>
-    )
-  }
-
   renderDropdown(type, elements) {
     if (elements.length < 1) {
       return ''
     }
 
+    const { filters } = this.props
+
     const allText = `All ${type}s`
-    const current = this.props.filters[type] || allText
+    const current = filters[type] || allText
 
     return (
       <Dropdown
@@ -80,6 +70,18 @@ export class RawFilterDropdowns extends React.Component {
           )}
         </Dropdown.Menu>
       </Dropdown>
+    )
+  }
+
+  render() {
+    const { seasons } = this.props
+
+    return (
+      <div className="d-flex justify-content-center">
+        {/* {this.renderDropdown("organisation", organisations)} */}
+        {/* {this.renderDropdown("competition", competitions)} */}
+        {this.renderDropdown("season", seasons)}
+      </div>
     )
   }
 }

@@ -3,7 +3,9 @@ import isEqual from 'react-fast-compare'
 export function accumulateDivisions(scores) {
   return scores.reduce((acc, cur) => {
     const { division } = cur
-    acc.includes(division) || acc.push(division)
+    if (!acc.includes(division)) {
+      acc.push(division)
+    }
     return acc
   }, []);
 }
@@ -31,7 +33,7 @@ export function accumulateLeagueDivisionClub(scores) {
   }).reduce((acc, cur) => {
     const { competition, season, league, regional, division, club, team, score } = cur
 
-    let index = acc.findIndex(e =>
+    const index = acc.findIndex(e =>
       e.competition === competition &&
       e.season === season &&
       e.league === league
@@ -69,7 +71,7 @@ export function accumulateLeagueDivisionClub(scores) {
         ],
       })
     } else {
-      const clubs = acc[index].clubs
+      const {clubs} = acc[index]
       const clubIndex = clubs.findIndex(e =>
         e.name === club  
       )
@@ -77,7 +79,7 @@ export function accumulateLeagueDivisionClub(scores) {
       if (clubIndex < 0) {
         clubs.push(newClub)
       } else {
-        const divisions = clubs[clubIndex].divisions
+        const {divisions} = clubs[clubIndex]
         const divisionIndex = divisions.findIndex(e =>
           e.name === division  
         )
@@ -85,7 +87,7 @@ export function accumulateLeagueDivisionClub(scores) {
         if (divisionIndex < 0) {
           divisions.push(newDivision)
         } else {
-          const teams = divisions[divisionIndex].teams
+          const {teams} = divisions[divisionIndex]
           const teamIndex = teams.findIndex(e =>
             e.name === team
           )
@@ -93,10 +95,10 @@ export function accumulateLeagueDivisionClub(scores) {
           if (teamIndex < 0) {
             teams.push(newTeam)
           } else {
-            const scores = teams[teamIndex].scores
-            const { total } = scores
+            const { scores: teamScores } = teams[teamIndex]
+            const { total } = teamScores
             teams[teamIndex].scores = {
-              ...scores,
+              ...teamScores,
               [regional]: score,
               total: total + score
             }

@@ -1,13 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import collapsing from '../../hoc/Collapsing'
 import { createStructuredSelector } from 'reselect'
+import collapsing from '../../hoc/Collapsing'
 import * as scoreSelectors from './selectors'
 import ScoreTable from '../ScoreTable/ScoreTable';
 
-export class RawScoreTableAuto extends React.Component {
+export class RawScoreTableAuto extends React.PureComponent {
   render() {
-    const league = this.props.leagueName === 'All'
+    const { leagueName } = this.props
+    const league = leagueName === 'All'
     return <ScoreTable league={league} {...this.props} />
   }
 }

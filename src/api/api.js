@@ -1,5 +1,5 @@
 
-let endpoints = {
+const endpoints = {
   organisation: '/organisation',
   competition: '/competition',
   season: '/season',
@@ -9,7 +9,7 @@ let endpoints = {
 }
 
 async function GET(endpoint) {
-  return await fetch(endpoint, {
+  return fetch(endpoint, {
     method: 'GET',
   }).then(response =>
     response.json()

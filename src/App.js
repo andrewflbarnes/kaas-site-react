@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
+import { bindActionCreators } from 'redux';
 import Navigation from './components/Navigation';
 import Seeding from './pages/Seeding';
 import Racing from './pages/Racing'
 import Home from './pages/Home'
 import { getData } from './state/kaas/action_creators'
-import { bindActionCreators } from 'redux';
 
 export class RawApp extends React.PureComponent {
   componentDidMount() {

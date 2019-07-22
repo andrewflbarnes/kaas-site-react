@@ -52,13 +52,13 @@ export function setScores(scores) {
   }
 }
 
-function fetchAndDispatch(dispatch, api, ...actions) {
+function fetchAndDispatch(dispatch, endpoint, ...next) {
   dispatch(statusActions.setLoading())
-  api()
+  endpoint()
     .then(res => {
-      actions.forEach(action => dispatch(action(res)))
+      next.forEach(action => dispatch(action(res)))
     })
-    .catch(error => dispatch(statusActions.setFetchError(api.name, error.message)))
+    .catch(error => dispatch(statusActions.setFetchError(endpoint.name, error.message)))
     .then(() => dispatch(statusActions.setLoaded()))
 }
 
