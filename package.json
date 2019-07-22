@@ -24,7 +24,7 @@
     "lint": "eslint --ext .js,.jsx .",
     "lint:fix": "eslint --ext .js,.jsx src --fix",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run lint && react-scripts build",
     "mock": "cd mock && json-server --watch data.json --routes routes.json --port 9080",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -45,7 +45,6 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^6.1.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^4.3.0",
     "eslint-config-prettier-react": "0.0.21",

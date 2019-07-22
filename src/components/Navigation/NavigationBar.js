@@ -10,13 +10,11 @@ import FilterDropdowns from '../FilterDropdowns'
 // - correct collapse transitioning in mobile layout
 // - correct start/end alignment in desktop layout
 export default React.memo(() => {
-  const navCollapse = (
-    <Navbar.Collapse id="basic-navbar-nav">
-      <Nav>
-        <Nav.Link href="#seeding">Seeding</Nav.Link>
-        <Nav.Link href="#racing">Racing</Nav.Link>
-      </Nav>
-    </Navbar.Collapse>
+  const navLinks = (
+    <Nav>
+      <Nav.Link href="#seeding">Seeding</Nav.Link>
+      <Nav.Link href="#racing">Racing</Nav.Link>
+    </Nav>
   )
 
   return (
@@ -49,7 +47,7 @@ export default React.memo(() => {
           <b>Kings</b>&nbsp;Ski Club
         </Navbar.Brand>
         <div className='d-none d-md-block'>
-          {navCollapse}
+          {navLinks}
         </div>
       </Col>
       <Col
@@ -59,7 +57,9 @@ export default React.memo(() => {
         <FilterDropdowns/>
       </Col>
       <div className='d-md-none col-12'>
-        {navCollapse}
+        <Navbar.Collapse id="basic-navbar-nav">
+          {navLinks}
+        </Navbar.Collapse>
       </div>
     </Navbar>
   )
