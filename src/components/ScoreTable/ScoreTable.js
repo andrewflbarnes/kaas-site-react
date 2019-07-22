@@ -1,21 +1,28 @@
 import React from 'react'
 import Badge from 'react-bootstrap/Badge'
 import Table from 'react-bootstrap/Table'
+import { arrayOf, bool } from 'prop-types'
+import ScoreTableTH from './ScoreTableTH'
 import { havePropsOrStateChanged } from '../../common/kaas_helper';
+import { regional, scoreRegional } from '../../types'
 
 const ROUND_COLUMN_WIDTH_PC = 10
 
-export const ScoreTableTH = React.memo(({ text, style = {}, className = '' }) => {
-  return (
-    <th
-      style={style}
-      className={`${className} px-0`}>
-      {text}
-    </th>
-  )
-})
+const propTypes = {
+  title: bool,
+  position: bool,
+  league: bool,
+  regionals: arrayOf(regional).isRequired,
+  scores: arrayOf(scoreRegional).isRequired,
+}
 
-export default class ScoreTable extends React.Component {
+const defaultProps  = {
+  title: false,
+  position: false,
+  league: false,
+}
+
+class ScoreTable extends React.Component {
   shouldComponentUpdate(nextProps) {
     return havePropsOrStateChanged(this.props, nextProps, ['scores', 'regionals', 'title', 'position', 'league'])
   }
@@ -141,3 +148,8 @@ export default class ScoreTable extends React.Component {
     : <h6>No Results</h6>
   }
 }
+
+ScoreTable.propTypes = propTypes
+ScoreTable.defaultProps = defaultProps
+
+export default ScoreTable

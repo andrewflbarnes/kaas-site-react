@@ -1,8 +1,17 @@
 import React from 'react'
+import { bool } from 'prop-types';
 import Collapse from 'react-bootstrap/Collapse'
 
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
+const propTypes = {
+  expanded: bool
+}
+
+const defaultProps = {
+  expanded: true
 }
 
 export default function collapsing(Component) {
@@ -21,6 +30,10 @@ export default function collapsing(Component) {
       )
     }
   }
+
   Collapsing.displayName = `Collapsing(${getDisplayName(Component)})`
+  Collapsing.propTypes = propTypes
+  Collapsing.defaultProps = defaultProps
+  
   return React.memo(Collapsing)
 }

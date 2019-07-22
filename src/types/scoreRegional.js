@@ -3,7 +3,6 @@ import { shape, string, number } from 'prop-types'
 const scoreRegional = shape({
     club: string.isRequired,
     team: string.isRequired,
-    name: string.isRequired,
     season: string.isRequired,
     league: string.isRequired,
     competition: string.isRequired,

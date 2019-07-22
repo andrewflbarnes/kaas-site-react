@@ -1,10 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
+import { func, arrayOf } from 'prop-types'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { bindActionCreators } from 'redux'
 import * as actions from '../../state/filters/action_creators'
 import * as kaasSelectors from '../../selectors/kaas'
+import { season, stateActiveFilters } from '../../types'
+
+const propTypes = {
+  updateNextFilter: func.isRequired,
+  seasons: arrayOf(season).isRequired,
+  filters: stateActiveFilters.isRequired
+}
 
 export class RawFilterDropdowns extends React.Component {
   constructor(props) {
@@ -85,6 +93,8 @@ export class RawFilterDropdowns extends React.Component {
     )
   }
 }
+
+RawFilterDropdowns.propTypes = propTypes
 
 const mapStateToProps = createStructuredSelector({
   seasons: kaasSelectors.getSeasons,

@@ -1,25 +1,22 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button'
+import { arrayOf, string, object, bool, func } from 'prop-types'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+import SelectorButton from './SelectorButton'
 
-export const SelectorButton = React.memo(({ name, match, onSelect }) => (
-  <Button
-    className='col-4 col-md-2'
-    variant={
-      name === match
-        ? 'primary'
-        : 'outline-primary'
-    }
-    onClick={
-      () => onSelect(name)
-    }
-  >
-    {name}
-  </Button>
-))
+const propTypes = {
+  elements: arrayOf(object).isRequired,
+  match: string,
+  onSelect: func.isRequired,
+  all: bool
+}
 
-export default React.memo(({ elements, match, onSelect, all }) => (
+const defaultProps = {
+  match: undefined,
+  all: false
+}
+
+const Selector = React.memo(({ elements, match, onSelect, all }) => (
   <ButtonToolbar>
     <ButtonGroup className="mb-2 col-12 justify-content-center">
       {all &&
@@ -40,3 +37,8 @@ export default React.memo(({ elements, match, onSelect, all }) => (
     </ButtonGroup>
   </ButtonToolbar>
 ))
+
+Selector.propTypes = propTypes
+Selector.defaultProps = defaultProps
+
+export default Selector

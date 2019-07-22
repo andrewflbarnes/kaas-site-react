@@ -1,9 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
+import { string } from 'prop-types';
 import collapsing from '../../hoc/Collapsing'
 import * as scoreSelectors from './selectors'
 import ScoreTable from '../ScoreTable/ScoreTable';
+
+const propTypes = {
+  leagueName: string.isRequired
+}
 
 export class RawScoreTableAuto extends React.PureComponent {
   render() {
@@ -12,6 +17,8 @@ export class RawScoreTableAuto extends React.PureComponent {
     return <ScoreTable league={league} {...this.props} />
   }
 }
+
+RawScoreTableAuto.propTypes = propTypes
 
 const mapStateToProps = createStructuredSelector({
   scores: scoreSelectors.filteredScores,

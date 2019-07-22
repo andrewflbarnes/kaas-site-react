@@ -1,17 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { arrayOf, bool } from 'prop-types'
 import ScoreTableAuto from '../ScoreTableAuto'
 import { havePropsOrStateChanged, arePropsOrStateStillUndefined } from '../../common/kaas_helper';
 import * as kaasSelectors from '../../selectors/kaas'
 import Selector from './Selector'
+import { division, league, season } from '../../types'
+
+const propTypes = {
+  seasons: arrayOf(season).isRequired,
+  leagues: arrayOf(league).isRequired,
+  divisions: arrayOf(division).isRequired,
+  title: bool
+}
+
+const defaultProps = {
+  title: false
+}
 
 export class RawScoreTableSLDC extends React.Component {
   constructor() {
     super()
 
     this.state = {
-      league: undefined,
-      division: undefined
+      leagueName: undefined,
+      divisionName: undefined,
     }
 
     this.handleLeagueSelection = this.handleLeagueSelection.bind(this)
@@ -24,72 +37,19 @@ export class RawScoreTableSLDC extends React.Component {
     }
     return havePropsOrStateChanged(
       this.props, nextProps, ['seasons', 'leagues', 'divisions', 'title'],
-      this.state, nextState, ['league', 'division'])
+      this.state, nextState, ['leagueName', 'divisionName'])
   }
 
-  handleLeagueSelection = league => {
+  handleLeagueSelection(leagueName) {
     this.setState({
-      league
+      leagueName
     })
   }
 
-  handleDivisionSelection = division => {
+  handleDivisionSelection(divisionName) {
     this.setState({
-      division
+      divisionName
     })
-  }
-
-  render() {
-    const { seasons, leagues, divisions } = this.props
-    const { league, division } = this.state
-
-    const seasonTitle = seasons.length > 1
-
-    // Short circuit if not able to render
-    // TODO check this is appropriate
-    return seasons && leagues && divisions
-    ? <>
-        <Selector
-          elements={leagues}
-          match={league}
-          onSelect={this.handleLeagueSelection}
-          all
-        />
-        {league &&
-          <Selector
-            elements={divisions}
-            match={division}
-            onSelect={this.handleDivisionSelection}
-          />
-        }
-        {league && division &&
-          seasons.map(season => 
-            this.renderSeason(season.name, seasonTitle)
-          )
-        }
-      </>
-    : <h6>No Results</h6>
-  }
-
-  renderSeason(seasonName, seasonTitle) {
-    const { league } = this.state
-
-    return (
-      <div key={`${seasonName}`}>
-        {seasonTitle && <h2>{seasonName}</h2>}
-        {league && this.renderLeague(seasonName, league)}
-      </div>
-    )
-  }
-
-  renderLeague(seasonName, leagueName) {
-    const { division } = this.state
-
-    return (
-      <div key={`${leagueName}`}>
-        {division && this.renderDivision(seasonName, leagueName, division)}
-      </div>
-    )
   }
 
   renderDivision(seasonName, leagueName, divisionName) {
@@ -107,7 +67,63 @@ export class RawScoreTableSLDC extends React.Component {
       </div>
     )
   }
+
+  renderLeague(seasonName, leagueName) {
+    const { divisionName } = this.state
+
+    return (
+      <div key={`${leagueName}`}>
+        {divisionName && this.renderDivision(seasonName, leagueName, divisionName)}
+      </div>
+    )
+  }
+
+  renderSeason(seasonName, seasonTitle) {
+    const { leagueName } = this.state
+
+    return (
+      <div key={`${seasonName}`}>
+        {seasonTitle && <h2>{seasonName}</h2>}
+        {leagueName && this.renderLeague(seasonName, leagueName)}
+      </div>
+    )
+  }
+
+  render() {
+    const { seasons, leagues, divisions } = this.props
+    const { leagueName, divisionName } = this.state
+
+    const seasonTitle = seasons.length > 1
+
+    // Short circuit if not able to render
+    // TODO check this is appropriate
+    return seasons && leagues && divisions
+    ? <>
+        <Selector
+          elements={leagues}
+          match={leagueName}
+          onSelect={this.handleLeagueSelection}
+          all
+        />
+        {leagueName &&
+          <Selector
+            elements={divisions}
+            match={divisionName}
+            onSelect={this.handleDivisionSelection}
+          />
+        }
+        {leagueName && divisionName &&
+          seasons.map(s => 
+            this.renderSeason(s.name, seasonTitle)
+          )
+        }
+      </>
+    : <h6>No Results</h6>
+  }
 }
+
+RawScoreTableSLDC.propTypes = propTypes
+RawScoreTableSLDC.defaultProps = defaultProps
 
 const mapStateToProps = state => {
   return {
