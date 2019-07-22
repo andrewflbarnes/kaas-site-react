@@ -40,12 +40,11 @@ function filters(state = initialState, action) {
         }
       }
     case actions.UPDATE_FILTER:
-      const { filter } = action
       return {
         ...state,
         activeFilters: {
           ...activeFilters,
-          [filter.type]: filter.value
+          [action.filter.type]: action.filter.value
         }
       }
     case actions.RESET_FILTERS:
