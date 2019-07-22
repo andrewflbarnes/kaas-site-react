@@ -7,12 +7,22 @@ export const getScores = state => state.kaas.scores
 export const getRegionals = state => state.kaas.regionals
 export const getLeagues = state => state.kaas.leagues
 export const getSeasons = state => state.kaas.seasons
-export const getDivisions = state => state.kaas.divisions
+// temp as we have undefined divisions endpoint
+export const getRawDivisions = state => state.kaas.divisions
+export const getDivisions = createSelector(
+  [getRawDivisions],
+  rawDivisions => (
+    rawDivisions.map(d => {
+      return { name: d }
+    })
+  )
+)
 
 export const getFilteredScores = createSelector(
   [getActiveFilters, getScores],
   (activeFilters, scores) => {
-  const { competition, season, league } = activeFilters
+    const { competition, season, league } = activeFilters
+
     return scores.filter(e => {
       if (competition && e.competition !== competition) {
         return false
@@ -85,5 +95,5 @@ export const getFilteredSeasons = createSelector(
 
 export const getFilteredDivisions = createSelector(
   [getDivisions],
-  divisions => divisions.map(d => { return { name: d }})
+  divisions => divisions
 )
