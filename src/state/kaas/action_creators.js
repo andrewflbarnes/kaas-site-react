@@ -1,7 +1,6 @@
 import * as actions from './action_names'
 import * as statusActions from '../status/action_creators'
 import api from '../../api'
-import * as kaas from '../../common/kaas_helper'
 
 export function setOrganisations(organisations) {
   return {
@@ -69,10 +68,8 @@ export function getData() {
     fetchAndDispatch(dispatch, api.getCompetitions, setCompetitions)
     fetchAndDispatch(dispatch, api.getSeasons, setSeasons)
     fetchAndDispatch(dispatch, api.getLeagues, setLeagues)
+    fetchAndDispatch(dispatch, api.getDivisions, setDivisions)
     fetchAndDispatch(dispatch, api.getRegionals, setRegionals)
-    fetchAndDispatch(dispatch, api.getRegionalScores,
-      res => setScores(res),
-      res => setDivisions(kaas.accumulateDivisions(res)),
-    )
+    fetchAndDispatch(dispatch, api.getRegionalScores, setScores)
   }
 }
