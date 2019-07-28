@@ -40,10 +40,6 @@ const api = {
     return GET(endpoints.league)
   },
   
-  async getLeagues() {
-    return GET(endpoints.league)
-  },
-  
   async getRegionals() {
     return GET(endpoints.regional)
   },

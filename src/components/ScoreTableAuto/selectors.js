@@ -13,23 +13,23 @@ const getDivisionName = (_, props) => props.divisionName
 const getClubName = (_, props) => props.clubName
 
 export const filteredScores = createSelector(
-  [getSeasonName, getLeagueName, getDivisionName, getClubName, kaasSelectors.getFilteredScores],
+  [getSeasonName, getLeagueName, getDivisionName, getClubName, kaasSelectors.getActiveScores],
   (seasonName, leagueName, divisionName, clubName, scores) => {
-    return scores.filter(s =>
+    const filt = scores.filter(s =>
       (!divisionName || s.division === divisionName) &&
       (!leagueName || s.league === leagueName) &&
       (!seasonName || s.season === seasonName) &&
       (!clubName || s.club === clubName)
     )
+    return filt
   }
 )
 
 export const filteredRegionals = createSelector(
-  [getSeasonName, getLeagueName, kaasSelectors.getFilteredRegionals],
-  (seasonName, leagueName, regionals) => {
+  [getLeagueName, kaasSelectors.getActiveRegionals],
+  (leagueName, regionals) => {
     return regionals.filter(regional =>
-      (!leagueName || regional.league === leagueName) &&
-      (!seasonName || regional.season === seasonName)
+      (!leagueName || regional.league === leagueName)
     ).filter((regional, _, check) =>
       check.find(r => r.name === regional.name) === regional
     )
