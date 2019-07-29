@@ -54,7 +54,7 @@ export const getFilteredSeasons = createSelector(
 
 function getActiveElements(activeFilters, elements) {
   const { competition, season, league } = activeFilters
-  const filt = elements.filter(e => {
+  return elements.filter(e => {
     if (season === constants.FILTER_NONE) {
       return false
     }
@@ -71,7 +71,6 @@ function getActiveElements(activeFilters, elements) {
 
     return true
   })
-  return filt
 }
 
 export const getActiveScores = createSelector(
