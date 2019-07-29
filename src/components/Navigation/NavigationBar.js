@@ -14,6 +14,7 @@ export default React.memo(() => {
     <Nav>
       <Nav.Link href="#seeding">Seeding</Nav.Link>
       <Nav.Link href="#racing">Racing</Nav.Link>
+      <Nav.Link href={`${process.env.PUBLIC_URL}/privacy.html`}>Privacy</Nav.Link>
     </Nav>
   )
 
