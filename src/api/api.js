@@ -3,6 +3,7 @@ const endpoints = {
   organisation: '/organisation',
   competition: '/competition',
   season: '/season',
+  division: '/division',
   league: '/league',
   regional: '/regional',
   regionalScores: '/score/regional',
@@ -29,6 +30,10 @@ const api = {
 
   async getSeasons() {
     return GET(endpoints.season)
+  },
+  
+  async getDivisions() {
+    return GET(endpoints.division)
   },
   
   async getLeagues() {

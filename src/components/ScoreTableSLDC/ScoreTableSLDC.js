@@ -96,8 +96,7 @@ export class RawScoreTableSLDC extends React.Component {
     const seasonTitle = seasons.length > 1
 
     // Short circuit if not able to render
-    // TODO check this is appropriate
-    return seasons && leagues && divisions
+    return seasons && seasons.length > 0 && leagues && leagues.length > 0 && divisions && divisions.length > 0
     ? <>
         <Selector
           elements={leagues}
@@ -127,9 +126,9 @@ RawScoreTableSLDC.defaultProps = defaultProps
 
 const mapStateToProps = state => {
   return {
-    leagues: kaasSelectors.getFilteredLeagues(state),
-    divisions: kaasSelectors.getFilteredDivisions(state),
-    seasons: kaasSelectors.getFilteredSeasons(state),
+    leagues: kaasSelectors.getActiveLeagues(state),
+    divisions: kaasSelectors.getActiveDivisions(state),
+    seasons: kaasSelectors.getActiveSeasons(state),
   }
 }
 

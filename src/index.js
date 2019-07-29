@@ -4,7 +4,7 @@ import './Theme.scss'
 import './index.css';
 import { Provider } from 'react-redux'
 import App from './App';
-import store from './state/store'
+import store from './store'
 
 const application = (
   <Provider store={store}>

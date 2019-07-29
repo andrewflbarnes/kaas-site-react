@@ -5,6 +5,7 @@ import { string } from 'prop-types';
 import collapsing from '../../hoc/Collapsing'
 import * as scoreSelectors from './selectors'
 import ScoreTable from '../ScoreTable/ScoreTable';
+import constants from '../../common/constants'
 
 const propTypes = {
   leagueName: string.isRequired
@@ -13,7 +14,7 @@ const propTypes = {
 export class RawScoreTableAuto extends React.PureComponent {
   render() {
     const { leagueName } = this.props
-    const league = leagueName === 'All'
+    const league = leagueName === constants.FILTER_ALL
     return <ScoreTable league={league} {...this.props} />
   }
 }
