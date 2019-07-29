@@ -12,6 +12,7 @@ import FilterDropdowns from '../FilterDropdowns'
 export default React.memo(() => {
   const navLinks = (
     <Nav>
+      <Nav.Link href={`${process.env.PUBLIC_URL}/privacy.html`}>Privacy</Nav.Link>
       <Nav.Link href="#seeding">Seeding</Nav.Link>
       <Nav.Link href="#racing">Racing</Nav.Link>
     </Nav>
