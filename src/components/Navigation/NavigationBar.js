@@ -1,30 +1,21 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import Nav from 'react-bootstrap/Nav'
 import Col from 'react-bootstrap/Col'
 import Navbar from 'react-bootstrap/Navbar'
-import { bool } from 'prop-types'
+import { useKeycloak } from 'react-keycloak';
 import FilterDropdowns from '../FilterDropdowns'
-import { createStructuredSelector } from 'reselect';
-import * as selectors from '../../selectors/auth'
-
-const propTypes = {
-  loggedIn: bool
-}
-
-const defaultProps = {
-  loggedIn: false
-}
+import ProfileLoginButton from '../ProfileLoginButton';
 
 // Mobile device navbar which expands to a desktop navbar at the md breakpoint
 // The somewhat convoluted layout ensures
 // - correct center alignment in mobile layout
 // - correct collapse transitioning in mobile layout
 // - correct start/end alignment in desktop layout
-const RawNavigationBar = React.memo(({ loggedIn }) => {
+const NavigationBar = React.memo(() => {
+  const { keycloak } = useKeycloak()
   const navLinks = (
     <Nav>
-      {loggedIn &&
+      {keycloak.authenticated &&
         <Nav.Link href="#admin">Admin</Nav.Link>
       }
       <Nav.Link href="#seeding">Seeding</Nav.Link>
@@ -71,6 +62,7 @@ const RawNavigationBar = React.memo(({ loggedIn }) => {
         className='d-flex justify-content-end px-0'
       >
         <FilterDropdowns/>
+        <ProfileLoginButton />
       </Col>
       <div className='d-md-none col-12'>
         <Navbar.Collapse id="basic-navbar-nav">
@@ -80,14 +72,5 @@ const RawNavigationBar = React.memo(({ loggedIn }) => {
     </Navbar>
   )
 })
-
-RawNavigationBar.propTypes = propTypes
-RawNavigationBar.defaultProps = defaultProps
-
-const mapStateToProps = createStructuredSelector({
-  loggedIn: selectors.getLoggedIn
-})
-
-const NavigationBar = connect(mapStateToProps)(RawNavigationBar)
 
 export default NavigationBar

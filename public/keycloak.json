@@ -1,0 +1,9 @@
+{
+    "realm": "kaas-dev",
+    "auth-server-url": "http://localhost:8080/auth",
+    "ssl-required": "external",
+    "resource": "kaas-site-react",
+    "public-client": true,
+    "confidential-port": 0,
+    "clientId": "kaas-site-react"
+}
