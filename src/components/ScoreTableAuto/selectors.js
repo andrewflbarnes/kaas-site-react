@@ -15,13 +15,12 @@ const getClubName = (_, props) => props.clubName
 export const filteredScores = createSelector(
   [getSeasonName, getLeagueName, getDivisionName, getClubName, kaasSelectors.getActiveScores],
   (seasonName, leagueName, divisionName, clubName, scores) => {
-    const filt = scores.filter(s =>
+    return scores.filter(s =>
       (!divisionName || s.division === divisionName) &&
       (!leagueName || s.league === leagueName) &&
       (!seasonName || s.season === seasonName) &&
       (!clubName || s.club === clubName)
     )
-    return filt
   }
 )
 
