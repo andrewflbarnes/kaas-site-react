@@ -56,7 +56,7 @@ async function fetchAndDispatch(dispatch, endpoint, next) {
 
 const DUMMY = { name: constants.FILTER_NONE }
 
-function getData() {
+function retrieveAllData() {
   return async (dispatch, getState) => {
     dispatch(statusActions.resetLoading())
     dispatch(statusActions.setLoading())
@@ -81,7 +81,7 @@ function getData() {
 }
 
 const mapDispatchTooProps = dispatch => {
-  return bindActionCreators({ getData }, dispatch)
+  return bindActionCreators({ getData: retrieveAllData }, dispatch)
 }
 
 const App = connect(null, mapDispatchTooProps)(RawApp)

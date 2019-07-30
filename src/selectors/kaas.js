@@ -130,7 +130,9 @@ export const getActiveCompetitions = createSelector(
   (competition, competitions) => {
     if (competition === constants.FILTER_NONE) {
       return []
-    } else if (competition === constants.FILTER_ALL) {
+    }
+    
+    if (competition === constants.FILTER_ALL) {
       return competitions
     }
 
@@ -145,7 +147,9 @@ export const getActiveSeasons = createSelector(
   (season, seasons) => {
     if (season === constants.FILTER_NONE) {
       return []
-    } else if (season === constants.FILTER_ALL) {
+    }
+    
+    if (season === constants.FILTER_ALL) {
       return seasons
     }
 

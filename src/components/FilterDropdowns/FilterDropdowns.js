@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import { bindActionCreators } from 'redux'
 import * as actions from '../../store/state/filters/action_creators'
 import * as kaasSelectors from '../../selectors/kaas'
-import { season, stateActiveFilters } from '../../types'
+import { organisation, competition, season, stateActiveFilters } from '../../types'
 import constants from '../../common/constants'
 
 const propTypes = {
@@ -15,11 +15,13 @@ const propTypes = {
   updateOrganisationFilterCascade: func.isRequired,
   updateCompetitionFilterCascade: func.isRequired,
   updateSeasonFilter: func.isRequired,
+  organisations: arrayOf(organisation).isRequired,
+  competitions: arrayOf(competition).isRequired,
   seasons: arrayOf(season).isRequired,
   filters: stateActiveFilters.isRequired
 }
 
-const defaulltProps = {
+const defaultProps = {
   full: false
 }
 
@@ -137,7 +139,7 @@ export class RawFilterDropdowns extends React.Component {
 }
 
 RawFilterDropdowns.propTypes = propTypes
-RawFilterDropdowns.defaulltProps = defaulltProps
+RawFilterDropdowns.defaultProps = defaultProps
 
 const mapStateToProps = createStructuredSelector({
   seasons: kaasSelectors.getFilteredSeasons,

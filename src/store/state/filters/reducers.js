@@ -8,7 +8,7 @@ function filters(state = initialState, action) {
   const { activeFilters } = state
 
   switch (action.type) {
-    case actions.UPDATE_FILTER:
+    case actions.UPDATE_FILTER: {
       const { type, value } = action.filter
       if (activeFilters[type] === value) {
         return state
@@ -21,6 +21,7 @@ function filters(state = initialState, action) {
           [type]: value
         }
       }
+    }
     default:
       return state
   }
