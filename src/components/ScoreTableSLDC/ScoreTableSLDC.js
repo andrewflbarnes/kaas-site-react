@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { arrayOf, bool } from 'prop-types'
+import { createStructuredSelector } from 'reselect';
 import ScoreTableAuto from '../ScoreTableAuto'
 import { havePropsOrStateChanged, arePropsOrStateStillUndefined } from '../../common/kaas_helper';
 import * as kaasSelectors from '../../selectors/kaas'
@@ -124,13 +125,11 @@ export class RawScoreTableSLDC extends React.Component {
 RawScoreTableSLDC.propTypes = propTypes
 RawScoreTableSLDC.defaultProps = defaultProps
 
-const mapStateToProps = state => {
-  return {
-    leagues: kaasSelectors.getActiveLeagues(state),
-    divisions: kaasSelectors.getActiveDivisions(state),
-    seasons: kaasSelectors.getActiveSeasons(state),
-  }
-}
+const mapStateToProps = createStructuredSelector({
+  leagues: kaasSelectors.getActiveLeagues,
+  divisions: kaasSelectors.getActiveDivisions,
+  seasons: kaasSelectors.getActiveSeasons,
+})
 
 const ScoreTableSLDC = connect(mapStateToProps)(RawScoreTableSLDC)
 

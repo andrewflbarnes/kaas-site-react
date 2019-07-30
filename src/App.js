@@ -8,6 +8,7 @@ import Navigation from './components/Navigation';
 import Seeding from './pages/Seeding';
 import Racing from './pages/Racing'
 import Home from './pages/Home'
+import Admin from './pages/Admin'
 import api from './api'
 import * as kaasActions from './store/state/kaas/action_creators'
 import * as filterActions from './store/state/filters/action_creators'
@@ -33,6 +34,7 @@ export class RawApp extends React.PureComponent {
           <div className="col-lg-10 offset-lg-1 px-0">
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route path="/admin" component={Admin} />
               <Route path="/seeding" component={Seeding} />
               <Route path="/racing" component={Racing} />
             </Switch>

@@ -1,17 +1,32 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Nav from 'react-bootstrap/Nav'
 import Col from 'react-bootstrap/Col'
 import Navbar from 'react-bootstrap/Navbar'
+import { bool } from 'prop-types'
 import FilterDropdowns from '../FilterDropdowns'
+import { createStructuredSelector } from 'reselect';
+import * as selectors from '../../selectors/auth'
+
+const propTypes = {
+  loggedIn: bool
+}
+
+const defaultProps = {
+  loggedIn: false
+}
 
 // Mobile device navbar which expands to a desktop navbar at the md breakpoint
 // The somewhat convoluted layout ensures
 // - correct center alignment in mobile layout
 // - correct collapse transitioning in mobile layout
 // - correct start/end alignment in desktop layout
-export default React.memo(() => {
+const RawNavigationBar = React.memo(({ loggedIn }) => {
   const navLinks = (
     <Nav>
+      {loggedIn &&
+        <Nav.Link href="#admin">Admin</Nav.Link>
+      }
       <Nav.Link href="#seeding">Seeding</Nav.Link>
       <Nav.Link href="#racing">Racing</Nav.Link>
       <Nav.Link href={`${process.env.PUBLIC_URL}/privacy.html`}>Privacy</Nav.Link>
@@ -65,3 +80,14 @@ export default React.memo(() => {
     </Navbar>
   )
 })
+
+RawNavigationBar.propTypes = propTypes
+RawNavigationBar.defaultProps = defaultProps
+
+const mapStateToProps = createStructuredSelector({
+  loggedIn: selectors.getLoggedIn
+})
+
+const NavigationBar = connect(mapStateToProps)(RawNavigationBar)
+
+export default NavigationBar
