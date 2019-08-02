@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import NavigationBar from './NavigationBar'
 import StatusBar from '../StatusBar';
 import { stateStatus } from '../../types'
+import * as selectors from '../../selectors/auth'
 
 const propTypes = {
   status: stateStatus.isRequired
@@ -10,11 +11,11 @@ const propTypes = {
 
 export class RawNavigation extends React.PureComponent {
   render() {
-    const { status } = this.props
+    const { status, authenticated } = this.props
 
     return (
       <>
-        <NavigationBar/>
+        <NavigationBar authenticated={authenticated}/>
         <StatusBar {...status} />
       </>
     )
@@ -27,7 +28,8 @@ const mapStateToProps = state => {
   const { status } = state
 
   return {
-    status
+    status,
+    keycloak: selectors.getAuthenticated(state)
   }
 }
 

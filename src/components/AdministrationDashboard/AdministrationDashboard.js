@@ -1,21 +1,27 @@
 import React from 'react'
-import { useKeycloak } from 'react-keycloak';
+import { connect } from 'react-redux'
+import selectors from '../../selectors'
 
-// Mobile device navbar which expands to a desktop navbar at the md breakpoint
-// The somewhat convoluted layout ensures
-// - correct center alignment in mobile layout
-// - correct collapse transitioning in mobile layout
-// - correct start/end alignment in desktop layout
-const AdministrationDashboard = React.memo(() => {
-  const { keycloak } = useKeycloak()
-  return (
-    <>
-      {keycloak.authenticated
-        ? <h1>Authorised</h1>
-        : <h1>Unauthorised - please login</h1>
-      }
-    </>
-  )
-})
+export class RawAdministrationDashboard extends React.PureComponent {
+  render() {
+    const { authenticated } = this.props
+    
+    return (
+      <>
+        {authenticated
+          ? <h1>Authorised</h1>
+          : <h1>Unauthorised - please login</h1>
+        }
+      </>
+    )
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    authenticated: selectors.getAuthenticated(state)
+  }
+}
+const AdministrationDashboard = connect(mapStateToProps)(RawAdministrationDashboard)
 
 export default AdministrationDashboard

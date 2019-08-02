@@ -1,8 +1,9 @@
 import * as actions from './action_names'
 
-export function loggedIn() {
+export function loggedIn(keycloak) {
   return {
-    type: actions.LOGGED_IN
+    type: actions.LOGGED_IN,
+    keycloak
   }
 }
 

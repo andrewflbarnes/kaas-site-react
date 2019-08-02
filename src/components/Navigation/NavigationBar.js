@@ -2,7 +2,6 @@ import React from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Col from 'react-bootstrap/Col'
 import Navbar from 'react-bootstrap/Navbar'
-import { useKeycloak } from 'react-keycloak';
 import FilterDropdowns from '../FilterDropdowns'
 import ProfileLoginButton from '../ProfileLoginButton';
 
@@ -11,11 +10,13 @@ import ProfileLoginButton from '../ProfileLoginButton';
 // - correct center alignment in mobile layout
 // - correct collapse transitioning in mobile layout
 // - correct start/end alignment in desktop layout
-const NavigationBar = React.memo(() => {
-  const { keycloak } = useKeycloak()
+const NavigationBar = React.memo(({ authenticated }) => {
   const navLinks = (
     <Nav>
-      {keycloak.authenticated &&
+      <div className='d-md-none'>
+        <FilterDropdowns/>
+      </div>
+      {authenticated &&
         <Nav.Link href="#admin">Admin</Nav.Link>
       }
       <Nav.Link href="#seeding">Seeding</Nav.Link>
@@ -61,7 +62,9 @@ const NavigationBar = React.memo(() => {
         xs={4}
         className='d-flex justify-content-end px-0'
       >
-        <FilterDropdowns/>
+        <div className='d-none d-md-block'>
+          <FilterDropdowns/>
+        </div>
         <ProfileLoginButton />
       </Col>
       <div className='d-md-none col-12'>

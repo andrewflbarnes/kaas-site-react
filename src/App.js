@@ -15,6 +15,7 @@ import * as filterActions from './store/state/filters/action_creators'
 import * as statusActions from './store/state/status/action_creators'
 import * as selectors from './selectors/kaas'
 import constants from './common/constants';
+import Profile from './pages/Profile';
 
 const propTypes = {
   getData: func.isRequired
@@ -34,9 +35,10 @@ export class RawApp extends React.PureComponent {
           <div className="col-lg-10 offset-lg-1 px-0">
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/admin" component={Admin} />
-              <Route path="/seeding" component={Seeding} />
-              <Route path="/racing" component={Racing} />
+              <Route exact path="/admin" component={Admin} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/seeding" component={Seeding} />
+              <Route exact path="/racing" component={Racing} />
             </Switch>
           </div>
         </Router>
@@ -56,8 +58,10 @@ async function fetchAndDispatch(dispatch, endpoint, next) {
   }
 }
 
+// TODO put this somewhere better
 const DUMMY = { name: constants.FILTER_NONE }
 
+// TODO better place for what is essentially app intialisation?
 function retrieveAllData() {
   return async (dispatch, getState) => {
     dispatch(statusActions.resetLoading())

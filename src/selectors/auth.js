@@ -1,2 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
-export const getLoggedIn = state => state.auth.loggedIn
+export const getUsername = state => state.auth.name
+export const getAuthenticated = state => state.auth.authenticated
