@@ -1,65 +1,58 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-// import Keycloak from 'keycloak-js'
+import { string, bool, func } from 'prop-types'
 import LoginButton from './LoginButton';
 import ProfileButton from './ProfileButton';
 import selectors from '../../selectors'
 import * as actions from '../../store/state/auth/action_creators'
+import { ssoLogin, ssoLogout } from '../../providers/sso'
+
+const propTypes = {
+  loggedIn: func.isRequired,
+  authenticated: bool.isRequired,
+  username: string
+}
+
+const defaultProps = {
+  username: ''
+}
 
 export class RawProfileLoginButton extends React.Component {
   constructor() {
     super()
 
     this.login = this.login.bind(this)
-    this.logout = this.logout.bind(this)
   }
 
   login() {
     const { loggedIn } = this.props
-    const { keycloak } = window
-    console.log('try log in')
-    
-    keycloak.login()
-    .success(() => {
-      console.log('logged in')
 
-      localStorage.setItem('kc_token', keycloak.token);
-      localStorage.setItem('kc_refreshToken', keycloak.refreshToken);
-
-      loggedIn(keycloak)
+    ssoLogin().then(({ authenticated, username }) => {
+      if (authenticated) {
+        loggedIn(username)
+      }
     })
-    .error(function(err) {
-        console.error('failed to login');
-        console.error(err);
-    });
-  }
-
-  logout() {
-    console.log('logout')
-
-    localStorage.removeItem('kc_token')
-    localStorage.removeItem('kc_refreshToken')
-
-    window.keycloak.logout()
   }
 
   render() {
-    const { authenticated, tokenParsed } = window.keycloak
-    console.log(window.keycloak)
-    console.log({ authenticated, tokenParsed })
+    const { authenticated, username } = this.props
+
     if (!authenticated) {
       return <LoginButton onClick={this.login} />
     }
   
-    return <ProfileButton name={tokenParsed.preferred_username} onClick={this.logout} />
+    return <ProfileButton username={username} onClick={ssoLogout} />
   }
 }
+
+RawProfileLoginButton.propTypes = propTypes
+RawProfileLoginButton.defaultProps = defaultProps
 
 const mapStateToProps = state => {
   return {
     authenticated: selectors.getAuthenticated(state),
-    name: selectors.getUsername(state),
+    username: selectors.getAuthUsername(state),
   }
 }
 

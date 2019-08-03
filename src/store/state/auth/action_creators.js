@@ -1,9 +1,14 @@
 import * as actions from './action_names'
 
-export function loggedIn(keycloak) {
+export function loggedIn(username, firstname, lastname, email) {
   return {
     type: actions.LOGGED_IN,
-    keycloak
+    payload: {
+      username,
+      firstname,
+      lastname,
+      email
+    }
   }
 }
 

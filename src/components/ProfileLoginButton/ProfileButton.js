@@ -6,13 +6,13 @@ import { func, string } from 'prop-types'
 
 const propTypes = {
   onClick: func.isRequired,
-  name: string.isRequired
+  username: string.isRequired
 }
 
-const ProfileButton = React.memo(({ name, onClick }) => {
+const ProfileButton = React.memo(({ username, onClick }) => {
   return (
     <Dropdown as={ButtonGroup}>
-      <Button variant="outline-primary" size='sm' href='#profile'>{name}</Button>
+      <Button variant="outline-primary" size='sm' href='#profile'>{username}</Button>
     
       <Dropdown.Toggle
         split

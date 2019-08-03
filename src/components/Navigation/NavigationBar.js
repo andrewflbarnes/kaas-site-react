@@ -2,8 +2,17 @@ import React from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Col from 'react-bootstrap/Col'
 import Navbar from 'react-bootstrap/Navbar'
+import { bool } from 'prop-types'
 import FilterDropdowns from '../FilterDropdowns'
 import ProfileLoginButton from '../ProfileLoginButton';
+
+const propTypes = {
+  authenticated: bool
+}
+
+const defaultProps = {
+  authenticated: false
+}
 
 // Mobile device navbar which expands to a desktop navbar at the md breakpoint
 // The somewhat convoluted layout ensures
@@ -75,5 +84,8 @@ const NavigationBar = React.memo(({ authenticated }) => {
     </Navbar>
   )
 })
+
+NavigationBar.propTypes = propTypes
+NavigationBar.defaultProps = defaultProps
 
 export default NavigationBar

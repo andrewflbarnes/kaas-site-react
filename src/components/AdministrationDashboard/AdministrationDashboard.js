@@ -1,6 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bool } from 'prop-types'
 import selectors from '../../selectors'
+
+const propTypes = {
+  authenticated: bool
+}
+
+const defaultProps = {
+  authenticated: false
+}
 
 export class RawAdministrationDashboard extends React.PureComponent {
   render() {
@@ -16,6 +25,10 @@ export class RawAdministrationDashboard extends React.PureComponent {
     )
   }
 }
+
+RawAdministrationDashboard.propTypes = propTypes
+
+RawAdministrationDashboard.defaultProps = defaultProps
 
 const mapStateToProps = state => {
   return {

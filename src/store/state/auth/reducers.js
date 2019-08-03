@@ -2,22 +2,24 @@ import * as actions from './action_names'
 
 const initialState = {
   authenticated: false,
-  name: ''
 }
 
 function auth(state = initialState, action) {
-  switch (action.type) {
+  const { type, payload } = action
+  switch (type) {
     case actions.LOGGED_IN: {
-      const { keycloak } = action
+      const { username, firstname, lastname, email } = payload
       return {
         authenticated: true,
-        name: keycloak.tokenParsed.preferred_username
+        username,
+        firstname,
+        lastname,
+        email,
       }
     }
     case actions.LOGGED_OUT:
       return {
         authenticated: false,
-        name: ''
       }
     default:
       return state

@@ -10,21 +10,34 @@ import Racing from './pages/Racing'
 import Home from './pages/Home'
 import Admin from './pages/Admin'
 import api from './api'
+import * as authActions from './store/state/auth/action_creators'
 import * as kaasActions from './store/state/kaas/action_creators'
 import * as filterActions from './store/state/filters/action_creators'
 import * as statusActions from './store/state/status/action_creators'
 import * as selectors from './selectors/kaas'
+import { ssoInit, ssoUserInfo } from './providers/sso'
 import constants from './common/constants';
 import Profile from './pages/Profile';
 
 const propTypes = {
+  loggedIn: func.isRequired,
   getData: func.isRequired
 }
 
 export class RawApp extends React.PureComponent {
   componentDidMount() {
-    const { getData } = this.props
+    const { getData, loggedIn } = this.props
     getData()
+    ssoInit().then(({ authenticated, username }) => {
+      if (authenticated) {
+        ssoUserInfo().then(userInfo => {
+          const { username: userInfoName, firstName, lastName, email } = userInfo
+          loggedIn(userInfoName, firstName, lastName, email)
+        }).catch(() => {
+          loggedIn(username)
+        })
+      }
+    })
   }
 
   render() {
@@ -87,7 +100,7 @@ function retrieveAllData() {
 }
 
 const mapDispatchTooProps = dispatch => {
-  return bindActionCreators({ getData: retrieveAllData }, dispatch)
+  return bindActionCreators({ ...authActions, getData: retrieveAllData }, dispatch)
 }
 
 const App = connect(null, mapDispatchTooProps)(RawApp)

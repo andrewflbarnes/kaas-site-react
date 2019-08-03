@@ -19,5 +19,6 @@ module.exports = {
       'fetch': false,
       'document': false,
       'window': false,
+      'localStorage': false,
     }
   };
