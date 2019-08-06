@@ -8,7 +8,16 @@ Data is retrieved from, and persisted to, a backend server over a RESTful API (s
 
 ## Dev environment
 
-To demo the site start the `kings-results-service` on port `9080` or start the mock server by running `npm run mock`.
+To demo the site start the `kings-results-service` on port `9080` or start the mock server by running  
+`npm run mock`
+
+Start keycloak in a docker instance by running  
+`nom run docker`
+
+This will
+- expose keycloak on port `8901`
+- provision a dev realm `kaas-dev`
+- privision an admin user `kaas-admin` on the `kaas-dev` realm with password `admin`
 
 Start the site server by running `npm start` and visit [http://localhost:3000](http://localhost:3000)
 
