@@ -12,7 +12,10 @@ const propTypes = {
 const ProfileButton = React.memo(({ username, onClick }) => {
   return (
     <Dropdown as={ButtonGroup}>
-      <Button variant="outline-primary" size='sm' href='#profile'>{username}</Button>
+      <Button variant="outline-primary" className='d-flex py-0 px-1 align-items-center' size='sm' href='#profile'>
+        <i className="material-icons md-48">account_circle</i>
+        <span className="d-none d-md-flex">&nbsp;{username}</span>
+      </Button>
     
       <Dropdown.Toggle
         split

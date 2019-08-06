@@ -21,17 +21,19 @@ const defaultProps = {
 // - correct start/end alignment in desktop layout
 const NavigationBar = React.memo(({ authenticated }) => {
   const navLinks = (
-    <Nav>
+    <>
       <div className='d-md-none'>
         <FilterDropdowns/>
       </div>
-      {authenticated &&
-        <Nav.Link href="#admin">Admin</Nav.Link>
-      }
-      <Nav.Link href="#seeding">Seeding</Nav.Link>
-      <Nav.Link href="#racing">Racing</Nav.Link>
-      <Nav.Link href={`${process.env.PUBLIC_URL}/privacy.html`}>Privacy</Nav.Link>
-    </Nav>
+      <Nav>
+        {authenticated &&
+          <Nav.Link href="#admin">Admin</Nav.Link>
+        }
+        <Nav.Link href="#seeding">Seeding</Nav.Link>
+        <Nav.Link href="#racing">Racing</Nav.Link>
+        <Nav.Link href={`${process.env.PUBLIC_URL}/privacy.html`}>Privacy</Nav.Link>
+      </Nav>
+    </>
   )
 
   return (
