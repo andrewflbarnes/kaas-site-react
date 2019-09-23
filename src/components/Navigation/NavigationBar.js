@@ -23,7 +23,7 @@ const NavigationBar = React.memo(({ authenticated }) => {
   const navLinks = (
     <>
       <div className='d-md-none'>
-        <FilterDropdowns/>
+        <FilterDropdowns full/>
       </div>
       <Nav>
         {authenticated &&
@@ -74,7 +74,7 @@ const NavigationBar = React.memo(({ authenticated }) => {
         className='d-flex justify-content-end px-0'
       >
         <div className='d-none d-md-block'>
-          <FilterDropdowns/>
+          <FilterDropdowns full/>
         </div>
         <ProfileLoginButton />
       </Col>

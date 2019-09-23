@@ -13,6 +13,8 @@ const application = (
     </Provider>
 )
 
+ReactDOM.render(application, document.getElementById('root'));
+
 // Looks stupid but this ensures the Router/Switch in the App renders
 // after logging in.
 // For some reason react thinks no route is selected after a login to

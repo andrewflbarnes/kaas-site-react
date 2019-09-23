@@ -31,6 +31,9 @@ export class RawProfileLoginButton extends React.Component {
     ssoLogin().then(({ authenticated, username }) => {
       if (authenticated) {
         loggedIn(username)
+      } else {
+        //TODO
+        alert('Unable to login')
       }
     })
   }
