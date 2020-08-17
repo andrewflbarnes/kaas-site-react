@@ -10,3 +10,4 @@ services:
       KEYCLOAK_IMPORT: "/tmp/kaas-dev.json"
     volumes:
     - ${PWD}/kaas-dev.json:/tmp/kaas-dev.json
+    - ${PWD}/../keycloak-theme:/opt/jboss/keycloak/themes/kaas

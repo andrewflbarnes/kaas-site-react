@@ -1,12 +1,13 @@
+const proxy = ''
 
 const endpoints = {
-  organisation: '/organisation',
-  competition: '/competition',
-  season: '/season',
-  division: '/division',
-  league: '/league',
-  regional: '/regional',
-  regionalScores: '/score/regional',
+  organisation: `${proxy}/organisation`,
+  competition: `${proxy}/competition`,
+  season: `${proxy}/season`,
+  division: `${proxy}/division`,
+  league: `${proxy}/league`,
+  regional: `${proxy}/regional`,
+  regionalScores: `${proxy}/score/regional`,
 }
 
 async function GET(endpoint) {
