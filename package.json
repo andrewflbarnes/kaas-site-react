@@ -5,12 +5,14 @@
   "proxy": "http://localhost:9080",
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "keycloak-js": "^6.0.1",
     "node-sass": "^4.12.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
     "react-fast-compare": "^2.0.4",
+    "react-keycloak": "^6.0.5",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
@@ -27,7 +29,11 @@
     "build": "npm run lint && react-scripts build",
     "mock": "cd mock && json-server --watch data.json --routes routes.json --port 9080",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "keycloak": "npm run keycloak:start && npm run keycloak:add-admin && npm run keycloak:restart",
+    "keycloak:start": "cd docker && docker-compose up -d",
+    "keycloak:restart": "cd docker && docker-compose restart keycloak",
+    "keycloak:add-admin": "cd docker && docker-compose exec keycloak keycloak/bin/add-user-keycloak.sh -r kaas-dev -u kaas-admin -p admin"
   },
   "eslintConfig": {
     "extends": "react-app"

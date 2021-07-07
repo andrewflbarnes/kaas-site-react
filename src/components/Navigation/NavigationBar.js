@@ -2,20 +2,38 @@ import React from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Col from 'react-bootstrap/Col'
 import Navbar from 'react-bootstrap/Navbar'
+import { bool } from 'prop-types'
 import FilterDropdowns from '../FilterDropdowns'
+import ProfileLoginButton from '../ProfileLoginButton';
+
+const propTypes = {
+  authenticated: bool
+}
+
+const defaultProps = {
+  authenticated: false
+}
 
 // Mobile device navbar which expands to a desktop navbar at the md breakpoint
 // The somewhat convoluted layout ensures
 // - correct center alignment in mobile layout
 // - correct collapse transitioning in mobile layout
 // - correct start/end alignment in desktop layout
-export default React.memo(() => {
+const NavigationBar = React.memo(({ authenticated }) => {
   const navLinks = (
-    <Nav>
-      <Nav.Link href="#seeding">Seeding</Nav.Link>
-      <Nav.Link href="#racing">Racing</Nav.Link>
-      <Nav.Link href={`${process.env.PUBLIC_URL}/privacy.html`}>Privacy</Nav.Link>
-    </Nav>
+    <>
+      <div className='d-md-none'>
+        <FilterDropdowns full/>
+      </div>
+      <Nav>
+        {authenticated &&
+          <Nav.Link href="#admin">Admin</Nav.Link>
+        }
+        <Nav.Link href="#seeding">Seeding</Nav.Link>
+        <Nav.Link href="#racing">Racing</Nav.Link>
+        <Nav.Link href={`${process.env.PUBLIC_URL}/privacy.html`}>Privacy</Nav.Link>
+      </Nav>
+    </>
   )
 
   return (
@@ -55,7 +73,10 @@ export default React.memo(() => {
         xs={4}
         className='d-flex justify-content-end px-0'
       >
-        <FilterDropdowns/>
+        <div className='d-none d-md-block'>
+          <FilterDropdowns full/>
+        </div>
+        <ProfileLoginButton />
       </Col>
       <div className='d-md-none col-12'>
         <Navbar.Collapse id="basic-navbar-nav">
@@ -65,3 +86,8 @@ export default React.memo(() => {
     </Navbar>
   )
 })
+
+NavigationBar.propTypes = propTypes
+NavigationBar.defaultProps = defaultProps
+
+export default NavigationBar

@@ -12,6 +12,10 @@ const initialState = {
 
 function kaas(state = initialState, action) {
   switch (action.type) {
+    case 'AUTH::LOGGED_IN':
+      return {
+        ...state
+      }
     case actions.SET_SCORES:
       return {
         ...state,

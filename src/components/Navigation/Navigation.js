@@ -1,20 +1,27 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bool } from 'prop-types'
 import NavigationBar from './NavigationBar'
 import StatusBar from '../StatusBar';
 import { stateStatus } from '../../types'
+import * as selectors from '../../selectors/auth'
 
 const propTypes = {
-  status: stateStatus.isRequired
+  status: stateStatus.isRequired,
+  authenticated: bool
+}
+
+const defaultProps = {
+  authenticated: false
 }
 
 export class RawNavigation extends React.PureComponent {
   render() {
-    const { status } = this.props
+    const { status, authenticated } = this.props
 
     return (
       <>
-        <NavigationBar/>
+        <NavigationBar authenticated={authenticated}/>
         <StatusBar {...status} />
       </>
     )
@@ -22,12 +29,14 @@ export class RawNavigation extends React.PureComponent {
 }
 
 RawNavigation.propTypes = propTypes
+RawNavigation.defaultProps = defaultProps
 
 const mapStateToProps = state => {
   const { status } = state
 
   return {
-    status
+    status,
+    authenticated: selectors.getAuthenticated(state)
   }
 }
 

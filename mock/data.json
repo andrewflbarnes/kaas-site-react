@@ -89,5 +89,10 @@
         {"id":1,"name":"Northern","competition":"Kings Ski","organisation":"Kings"},
         {"id":3,"name":"Southern","competition":"Kings Ski","organisation":"Kings"},
         {"id":4,"name":"Western","competition":"Kings Ski","organisation":"Kings"}
+    ],
+    "division": [
+        {"id":3,"name":"Board","competition":"Kings Ski","organisation":"Kings"},
+        {"id":2,"name":"Ladies","competition":"Kings Ski","organisation":"Kings"},
+        {"id":1,"name":"Mixed","competition":"Kings Ski","organisation":"Kings"}
     ]
 }

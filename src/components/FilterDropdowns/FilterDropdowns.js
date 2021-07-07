@@ -71,8 +71,8 @@ export class RawFilterDropdowns extends React.Component {
 
     return (
       <Dropdown
+        alignRight
         key={type}
-        drop="left"
         className='mx-1'
         onSelect={eventKey => this.handleSelect(type, eventKey)}
       >
@@ -92,7 +92,6 @@ export class RawFilterDropdowns extends React.Component {
           </Dropdown.Header>
           <Dropdown.Divider />
           <Dropdown.Item
-            variant='dark'
             className='text-light'
             key={allKey}
             eventKey={allKey}
@@ -101,7 +100,6 @@ export class RawFilterDropdowns extends React.Component {
           </Dropdown.Item>
           {elements.map(e =>
             <Dropdown.Item
-              variant='dark'
               className='text-light'
               key={e.name}
               eventKey={e.name}
